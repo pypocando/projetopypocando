@@ -1,0 +1,31 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #1a1a1a; /* Um fundo escuro, como no Netflix */
+    color: #f0f0f0; /* Cor do texto clara */
+}
+
+header {
+    background-color: #0d0d0d;
+    padding: 20px;
+    text-align: center;
+}
+
+h1 {
+    color: #e50914; /* Vermelho Netflix */
+}
+
+main {
+    padding: 20px;
+    text-align: center;
+}
+
+footer {
+    background-color: #0d0d0d;
+    padding: 10px;
+    text-align: center;
+    position: fixed; /* Fixa o rodapé na parte inferior */
+    bottom: 0; /* Alinha o rodapé à parte inferior */
+    width: 100%; /* Garante que o rodapé ocupe toda a largura */
+}
