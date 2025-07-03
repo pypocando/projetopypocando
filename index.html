@@ -2,31 +2,25 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pypocando.site - Seu Portal de Filmes e Pipoca!</title>
-    <meta name="description" content="Bem-vindo ao Pypocando.site! Seu novo portal para explorar e descobrir filmes incríveis, com conteúdo exclusivo e muita pipoca.">
-    <meta name="keywords" content="filmes, cinema, pipoca, pypocando, reviews, streaming, entretenimento">
-    <meta name="author" content="Seu Nome ou Nome da Equipe">
-    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <title>Pypocando</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="icon" href="favicon.png" type="image/png">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
+
     <aside class="sidebar" id="sidebar">
-        <div class="sidebar-header">
-            <div class="sidebar-close-button" id="sidebarCloseButton">
-                <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-            </div>
-        </div>
         <nav>
             <ul>
-                <li><a href="#"><span>Início</span></a></li>
-                <li><a href="#"><span>Filmes</span></a></li>
-                <li><a href="#"><span>Séries</span></a></li>
-                <li><a href="#"><span>Minha Lista</span></a></li>
-                <li><a href="#"><span>Categorias</span></a></li>
-                <li><a href="#"><span>Novidades</span></a></li>
+                <li><a href="#"><i class="fas fa-home"></i> Início</a></li>
+                <li><a href="#"><i class="fas fa-film"></i> Filmes</a></li>
+                <li><a href="#"><i class="fas fa-tv"></i> Séries</a></li>
+                <li><a href="#"><i class="fas fa-book"></i> Livros</a></li>
+                <li><a href="#"><i class="fas fa-gamepad"></i> Jogos</a></li>
+                <li><a href="#"><i class="fas fa-newspaper"></i> Notícias</a></li>
+                <li><a href="#"><i class="fas fa-user"></i> Sobre Nós</a></li>
+                <li><a href="#"><i class="fas fa-envelope"></i> Contato</a></li>
             </ul>
         </nav>
     </aside>
@@ -35,7 +29,9 @@
         <header>
             <div class="header-top-row">
                 <div class="menu-toggle-button" id="menuToggleButton">
-                    <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+                    <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M3 18H21V16H3V18ZM3 13H21V11H3V13ZM3 6V8H21V6H3Z"></path>
+                    </svg>
                 </div>
                 <img src="pypocando_logo.png" alt="Logo Pypocando" class="logo-site">
             </div>
@@ -43,17 +39,22 @@
             <div class="search-container">
                 <input type="text" placeholder="Pesquisar" class="search-input">
                 <button class="search-button">
-                    <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="search-icon">
-                        <circle cx="11" cy="11" r="8"></circle>
-                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-                    </svg>
+                    <i class="fas fa-search"></i>
                 </button>
             </div>
         </header>
 
         <main class="main-area">
-            <p>Este é o começo do nosso projeto. Em breve, teremos muitos filmes aqui!</p>
+            <h1>Bem-vindo ao Pypocando!</h1>
+            <p>Seu portal de conteúdo sobre filmes, séries, livros, jogos e muito mais.</p>
+            <div style="height: 1200px; background-color: #0d0d0d; margin-top: 20px; padding: 20px; border-radius: 8px;">
+                <p>Conteúdo de exemplo para simular rolagem.</p>
+            </div>
         </main>
+
+        <footer>
+            <p>&copy; 2024 Pypocando. Todos os direitos reservados.</p>
+        </footer>
     </div>
 
     <script src="script.js"></script>
