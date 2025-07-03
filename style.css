@@ -3,26 +3,26 @@ body {
     margin: 0;
     padding: 0;
     background-color: black; /* Fundo totalmente preto para todo o corpo */
-    color: #f0f0f0; /* Cor do texto clara */
+    color: #E0FECA; /* Cor do texto geral em verde bem claro */
 }
 
 header {
     background-color: black; /* Fundo preto para o cabeçalho */
-    padding: 20px 30px; /* Mais padding à esquerda para o logo, como na Netflix */
+    padding: 15px 20px; /* Ajuste do padding para ficar mais perto das laterais e menor */
     text-align: left; /* Alinha o conteúdo do cabeçalho à esquerda */
     width: 100%; /* Garante que o cabeçalho ocupe toda a largura */
     box-sizing: border-box; /* Inclui padding na largura total */
 }
 
-h1 {
-    /* Estilo para o nome PYPOCANDO, limpo e forte como Netflix */
-    color: #FF6600; /* Laranja forte e legível (sem brilho excessivo) */
-    /* text-shadow removido para eliminar o efeito neon */
-    font-family: 'Arial Black', Gadget, sans-serif; /* Fonte forte e limpa */
-    text-transform: uppercase; /* Garante que esteja em maiúsculas */
-    font-size: 2.5em; /* Tamanho ajustado para ser visível e limpo, como na Netflix */
-    margin: 0; /* Remove margem padrão para melhor posicionamento */
-    display: inline-block; /* Para garantir alinhamento e dimensões corretas */
+/* Removido o estilo do h1, pois agora será uma imagem */
+
+.logo-site {
+    /* Estilo para a imagem do logo pypocando */
+    max-width: 180px; /* Ajusta o tamanho da imagem, deixando-a um pouco menor */
+    height: auto; /* Mantém a proporção da imagem */
+    display: block; /* Garante que ela ocupe seu próprio espaço */
+    margin: 0; /* Remove margens padrão que a imagem possa ter */
+    /* A cor da imagem é definida no próprio arquivo .png */
 }
 
 main {
@@ -39,4 +39,5 @@ footer {
     bottom: 0; /* Alinha o rodapé à parte inferior */
     width: 100%; /* Garante que o rodapé ocupe toda a largura */
     box-sizing: border-box; /* Inclui padding na largura total */
+    color: #E0FECA; /* Cor do texto do rodapé em verde bem claro */
 }
