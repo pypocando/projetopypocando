@@ -2,23 +2,33 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #1a1a1a; /* Um fundo escuro, como no Netflix */
+    background-color: black; /* Fundo totalmente preto */
     color: #f0f0f0; /* Cor do texto clara */
 }
 
 header {
-    background-color: #0d0d0d;
-    padding: 20px;
-    text-align: center;
+    background-color: #0d0d0d; /* Mantém o fundo escuro do cabeçalho */
+    padding: 20px 30px; /* Mais padding à esquerda para o logo */
+    text-align: left; /* Alinha o conteúdo do cabeçalho à esquerda */
+    width: 100%; /* Garante que o cabeçalho ocupe toda a largura */
+    box-sizing: border-box; /* Inclui padding na largura total */
 }
 
 h1 {
-    color: #e50914; /* Vermelho Netflix */
+    /* Estilo para o nome PYPOCANDO */
+    color: #FFA500; /* Laranja brilhante */
+    text-shadow: 0 0 10px #FFA500, 0 0 20px #FFA500, 0 0 30px #FFA500; /* Efeito neon */
+    font-family: 'Impact', 'Haettenschweiler', 'Arial Narrow Bold', sans-serif; /* Fonte impactante */
+    text-transform: uppercase; /* Garante que esteja em maiúsculas */
+    font-size: 3em; /* Tamanho maior para destaque */
+    margin: 0; /* Remove margem padrão para melhor posicionamento */
+    display: inline-block; /* Para garantir que o text-shadow funcione bem */
 }
 
 main {
     padding: 20px;
     text-align: center;
+    min-height: calc(100vh - 130px); /* Ajusta a altura mínima para o rodapé fixo */
 }
 
 footer {
@@ -28,4 +38,5 @@ footer {
     position: fixed; /* Fixa o rodapé na parte inferior */
     bottom: 0; /* Alinha o rodapé à parte inferior */
     width: 100%; /* Garante que o rodapé ocupe toda a largura */
+    box-sizing: border-box; /* Inclui padding na largura total */
 }
