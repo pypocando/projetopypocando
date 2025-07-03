@@ -9,23 +9,26 @@ body {
     overflow-x: hidden;
 }
 
-/* Botão de Menu (3 traços) - Desktop */
+/* Botão de Menu (3 traços) - Comportamento PADRÃO para Desktop */
 .menu-toggle-button {
-    position: fixed; /* Fixo na tela */
-    top: 15px;
-    left: 15px;
     color: #FFFFFF;
     cursor: pointer;
-    z-index: 1050; /* Acima de tudo para ser clicável */
+    z-index: 1050;
     background-color: transparent;
     border: none;
     padding: 0;
     width: 24px;
     height: 24px;
-    display: flex; /* Para centralizar o SVG */
+    display: flex; /* Garante que é um flex container para centralizar SVG */
     align-items: center;
     justify-content: center;
-    /* Por padrão em desktop, ele é visível no canto superior esquerdo da tela */
+    
+    /* Padrão para Desktop: Escondido no header, ele será ativado via JS */
+    /* ou seja, ele é o botão que abre a sidebar quando ela está fechada */
+    position: absolute; /* Posição absoluta dentro do header */
+    top: 15px; /* Alinhado ao topo */
+    left: 15px; /* Alinhado à esquerda da sidebar (quando visível) */
+    display: flex; /* Visível por padrão em desktop, pois é o botão que sempre existe */
 }
 
 .menu-toggle-button svg {
@@ -46,14 +49,14 @@ body {
     overflow-y: auto;
     height: 100%;
     transition: width 0.3s ease, left 0.3s ease;
-    padding-top: 15px; /* Espaço no topo, alinhado com o menu toggle button em desktop */
+    padding-top: 15px; /* Espaço no topo, alinhado com o botão de menu */
     border-right: 1px solid #333333;
     display: flex;
     flex-direction: column;
 }
 
 .sidebar.open {
-    width: 250px;
+    width: 250px; /* Largura ao expandir */
 }
 
 /* Cabeçalho da Sidebar (contém o botão de fechar) */
@@ -125,7 +128,7 @@ body {
     flex-grow: 1;
     display: flex;
     flex-direction: column;
-    margin-left: 60px; /* Começa à direita da sidebar fina (onde o menu toggle button fica em desktop) */
+    margin-left: 60px; /* Começa à direita da sidebar fina */
     transition: margin-left 0.3s ease, filter 0.3s ease;
     background-color: black;
 }
@@ -149,7 +152,7 @@ header {
     box-sizing: border-box;
     flex-shrink: 0;
     border-bottom: 1px solid #333333;
-    position: relative; /* Mantém relative para o caso de elementos posicionados */
+    position: relative; /* Essencial para o posicionamento absoluto do menu-toggle-button */
 }
 
 .logo-site {
@@ -213,54 +216,52 @@ header {
 
 /* Desktop (min-width: 769px) - MANTER INTACTO */
 @media (min-width: 769px) {
-    /* O menu-toggle-button já é position: fixed no CSS global, então ele já está no canto superior esquerdo */
-    /* Nenhuma alteração de display ou posição específica aqui para desktop. */
-    /* O logo-site já tem margin: 0 no CSS global para desktop. */
+    /* O menu-toggle-button já está posicionado corretamente no CSS global para desktop. */
+    /* Ele está dentro do header, mas com position: absolute e alinhado à esquerda. */
+    
+    /* Garantir que o logo-site comece após a largura do sidebar quando fechado. */
+    .logo-site {
+        margin-left: 60px; /* Afasta o logo da quina onde estaria o botão da sidebar */
+    }
 
-    .header-mobile-top {
-        display: contents; /* Faz a div não gerar uma caixa, apenas seus filhos aparecem no fluxo */
-        /* Isso garante que no desktop, o logo-site dentro dela se comporte como se estivesse diretamente no header */
+    /* O search-container pode usar o margin-left padrão. */
+    .search-container {
+        margin-left: 20px;
     }
 }
 
-
 /* Mobile/Tablet (max-width: 768px) - AJUSTAR APENAS AQUI */
 @media (max-width: 768px) {
+    header {
+        flex-direction: row; /* Volta a ser linha para ícone e logo */
+        align-items: center; /* Centraliza verticalmente os itens da linha */
+        justify-content: flex-start; /* Alinha tudo à esquerda na linha */
+        padding: 10px 15px;
+        flex-wrap: wrap; /* Permite quebrar linha para a barra de pesquisa */
+    }
+
     .menu-toggle-button {
-        position: static; /* Remove o fixed para que ele possa ser parte do flexbox */
+        position: static; /* Remove o absolute para que ele participe do flexbox */
         display: flex; /* Visível em mobile */
         margin-right: 10px; /* Espaço entre o ícone e o logo */
         top: auto; /* Remove top fixo */
         left: auto; /* Remove left fixo */
-    }
-
-    header {
-        flex-direction: column; /* Coloca os elementos em coluna */
-        align-items: flex-start; /* Alinha tudo à esquerda */
-        padding: 10px 15px;
-        position: relative;
-    }
-
-    /* Contêiner para o ícone de menu e logo no mobile */
-    .header-mobile-top {
-        display: flex; /* Torna a div um flex container */
-        align-items: center; /* Alinha verticalmente ícone e logo */
-        justify-content: flex-start; /* Alinha o grupo ícone+logo à esquerda */
-        width: 100%; /* Ocupa a largura total */
-        margin-bottom: 10px; /* Espaço entre esta linha e a barra de pesquisa */
+        order: 1; /* Garante que ele seja o primeiro elemento na linha */
     }
 
     .logo-site {
         max-width: 130px; /* Tamanho do logo no celular */
         height: auto;
         margin: 0; /* Remove margens extras */
+        order: 2; /* Garante que ele seja o segundo elemento na linha */
     }
 
     .search-container {
         width: 100%; /* Ocupa a largura total */
         max-width: none; /* Remove max-width para ocupar todo espaço disponível */
-        margin-top: 0;
+        margin-top: 10px; /* Espaço entre a linha de cima e a barra de pesquisa */
         margin-left: 0;
+        order: 3; /* Garante que ele seja o terceiro elemento na linha (nova linha) */
     }
 
     /* Sidebar e content-wrapper - manter como estava para mobile */
