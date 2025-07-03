@@ -1,23 +1,25 @@
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Arial', sans-serif;
     margin: 0;
     padding: 0;
-    background-color: black; /* Fundo totalmente preto para todo o corpo */
-    color: #FFFFFF; /* Cor do texto geral em branco puro */
-    display: flex; /* Para organizar header, main-layout e footer em coluna */
+    background-color: black; /* Fundo principal preto */
+    color: #FFFFFF; /* Cor do texto geral em branco */
+    display: flex; /* Para organizar header, main-content-wrapper e footer em coluna */
     flex-direction: column;
     min-height: 100vh; /* Garante que o body ocupe a altura total da tela */
 }
 
+/* Estilo do Cabeçalho */
 header {
-    background-color: black;
+    background-color: #141414; /* Preto mais escuro para o cabeçalho, similar à Netflix */
     padding: 15px 20px;
-    display: flex; /* Usamos flexbox para alinhar logo e barra */
-    align-items: center; /* Alinha verticalmente */
-    justify-content: space-between; /* Espaça o logo e a barra */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     width: 100%;
     box-sizing: border-box;
-    flex-shrink: 0; /* Impede que o header encolha */
+    flex-shrink: 0; /* Impede que o cabeçalho encolha */
+    border-bottom: 1px solid #333333; /* Linha sutil de divisão */
 }
 
 .logo-site {
@@ -27,30 +29,31 @@ header {
     margin: 0;
 }
 
+/* Estilo da Barra de Pesquisa */
 .search-container {
     display: flex;
     align-items: center;
-    background-color: #333333; /* Cinza escuro que combina com a paleta */
-    border-radius: 20px; /* Bordas arredondadas */
+    background-color: #333333; /* Cinza médio para a barra de pesquisa */
+    border-radius: 20px;
     padding: 5px 10px;
-    flex-grow: 1; /* Permite que a barra de pesquisa ocupe o espaço disponível */
-    max-width: 400px; /* Largura máxima para desktops */
-    margin-left: 20px; /* Espaço entre o logo e a barra de pesquisa */
+    flex-grow: 1;
+    max-width: 400px;
+    margin-left: 20px;
 }
 
 .search-input {
-    background-color: transparent; /* Fundo transparente */
-    border: none; /* Sem borda */
-    outline: none; /* Remove a borda de foco padrão */
-    color: #FFFFFF; /* Cor do texto digitado em branco */
+    background-color: transparent;
+    border: none;
+    outline: none;
+    color: #FFFFFF;
     font-size: 1em;
     padding: 5px;
-    flex-grow: 1; /* Ocupa o máximo de espaço dentro do container */
-    margin-right: 5px; /* Espaço entre o texto e o ícone */
+    flex-grow: 1;
+    margin-right: 5px;
 }
 
 .search-input::placeholder {
-    color: #BBBBBB; /* Cor do placeholder "Pesquisar" em um cinza mais claro */
+    color: #BBBBBB; /* Cinza claro para o placeholder */
 }
 
 .search-button {
@@ -58,88 +61,96 @@ header {
     border: none;
     cursor: pointer;
     padding: 0;
-    display: flex; /* Para centralizar o ícone */
+    display: flex;
     align-items: center;
     justify-content: center;
 }
 
 .search-icon {
-    color: #BBBBBB; /* Cor do ícone da lupa */
+    color: #BBBBBB;
     width: 20px;
     height: 20px;
 }
 
-/* Novo container para o layout principal (sidebar + main content) */
-.main-layout {
-    display: flex; /* Sidebar e Main lado a lado */
+/* Novo Wrapper para Sidebar e Conteúdo Principal */
+.main-content-wrapper {
+    display: flex; /* Para Sidebar e Main lado a lado */
     flex-grow: 1; /* Ocupa o restante da altura disponível */
+    background-color: black; /* Fundo do wrapper para garantir cor uniforme */
 }
 
+/* Estilo da Barra Lateral (Sidebar) */
 .sidebar {
     width: 250px; /* Largura da barra lateral */
-    background-color: #1A1A1A; /* Cinza escuro para a barra lateral */
+    background-color: #222222; /* Cinza escuro para a barra lateral */
     padding: 20px 0;
     box-sizing: border-box;
     flex-shrink: 0; /* Impede que a sidebar encolha */
-    overflow-y: auto; /* Adiciona scroll se o conteúdo for muito longo */
+    overflow-y: auto; /* Rolagem se o conteúdo for muito longo */
+    border-right: 1px solid #333333; /* Linha sutil de divisão */
 }
 
 .sidebar nav ul {
-    list-style: none; /* Remove os marcadores de lista */
+    list-style: none;
     padding: 0;
     margin: 0;
 }
 
 .sidebar nav ul li a {
-    display: block; /* Faz com que o link ocupe toda a largura */
-    color: #FFFFFF; /* Cor do texto dos links em branco */
-    text-decoration: none; /* Remove sublinhado */
-    padding: 10px 20px; /* Padding interno para os itens da lista */
-    transition: background-color 0.3s ease; /* Transição suave ao passar o mouse */
+    display: block;
+    color: #FFFFFF;
+    text-decoration: none;
+    padding: 10px 20px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    font-size: 0.95em;
 }
 
 .sidebar nav ul li a:hover {
-    background-color: #333333; /* Cinza um pouco mais claro ao passar o mouse */
+    background-color: #333333; /* Cor de fundo ao passar o mouse */
+    color: #E20016; /* Cor do texto em vermelho ao passar o mouse */
 }
 
-main {
-    flex-grow: 1; /* Ocupa o restante do espaço disponível na largura */
+/* Estilo da Área Principal de Conteúdo */
+.main-area {
+    flex-grow: 1; /* Ocupa o restante do espaço na largura */
     padding: 20px;
     text-align: center;
-    background-color: black; /* Garante que o main tenha fundo preto */
-    overflow-y: auto; /* Adiciona scroll se o conteúdo for muito longo */
+    background-color: black; /* Fundo do main para garantir cor uniforme */
+    overflow-y: auto; /* Rolagem se o conteúdo for muito longo */
 }
 
+/* Estilo do Rodapé */
 footer {
     background-color: black;
     padding: 10px;
     text-align: center;
-    width: 100%; /* Garante que o rodapé ocupe toda a largura */
+    width: 100%;
     box-sizing: border-box;
     color: #FFFFFF;
-    flex-shrink: 0; /* Impede que o footer encolha */
+    flex-shrink: 0; /* Impede que o rodapé encolha */
+    border-top: 1px solid #333333; /* Linha sutil de divisão */
 }
 
 /* Media Queries para Responsividade */
 @media (max-width: 768px) {
     header {
-        flex-direction: column; /* Em telas menores, logo e barra empilham */
-        align-items: flex-start; /* Alinha logo e barra à esquerda */
-        padding: 10px 15px; /* Reduz padding */
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 10px 15px;
     }
 
     .search-container {
-        width: calc(100% - 30px); /* Ocupa quase toda a largura */
-        margin-top: 10px; /* Espaço entre o logo e a barra */
-        max-width: none; /* Remove a largura máxima para se adaptar */
-        margin-left: 0; /* Remove margem para centralizar em mobile */
+        width: calc(100% - 30px);
+        margin-top: 10px;
+        max-width: none;
+        margin-left: 0;
     }
 
     .logo-site {
-        max-width: 150px; /* Diminui um pouco o logo em telas menores */
+        max-width: 150px;
     }
 
-    .main-layout {
+    .main-content-wrapper {
         flex-direction: column; /* Sidebar e Main empilham em telas menores */
     }
 
@@ -147,19 +158,19 @@ footer {
         width: 100%; /* Sidebar ocupa toda a largura */
         height: auto; /* Altura automática */
         padding: 10px 0;
-        /* Para mobile, podemos até ocultar o sidebar por padrão e mostrar com um botão menu */
-        /* display: none; /* Exemplo de como esconder */
+        border-right: none; /* Remove borda da direita em mobile */
+        border-bottom: 1px solid #333333; /* Adiciona borda inferior para divisão */
     }
 
     .sidebar nav ul {
-        display: flex; /* Itens da lista em linha para mobile */
-        flex-wrap: wrap; /* Quebra linha se não couber */
-        justify-content: center; /* Centraliza os itens */
-        gap: 5px; /* Espaço entre os itens */
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 5px;
     }
 
     .sidebar nav ul li a {
-        padding: 8px 15px; /* Reduz padding dos itens da sidebar */
+        padding: 8px 15px;
         font-size: 0.9em;
     }
 }
