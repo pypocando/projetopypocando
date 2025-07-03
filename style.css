@@ -25,6 +25,7 @@ body {
     display: flex; /* Para centralizar o SVG */
     align-items: center;
     justify-content: center;
+    /* Por padrão em desktop, ele é visível no canto superior esquerdo da tela */
 }
 
 .menu-toggle-button svg {
@@ -45,7 +46,7 @@ body {
     overflow-y: auto;
     height: 100%;
     transition: width 0.3s ease, left 0.3s ease;
-    padding-top: 15px; /* Espaço no topo */
+    padding-top: 15px; /* Espaço no topo, alinhado com o menu toggle button em desktop */
     border-right: 1px solid #333333;
     display: flex;
     flex-direction: column;
@@ -124,7 +125,7 @@ body {
     flex-grow: 1;
     display: flex;
     flex-direction: column;
-    margin-left: 60px; /* Começa à direita da sidebar fina */
+    margin-left: 60px; /* Começa à direita da sidebar fina (onde o menu toggle button fica em desktop) */
     transition: margin-left 0.3s ease, filter 0.3s ease;
     background-color: black;
 }
@@ -148,14 +149,14 @@ header {
     box-sizing: border-box;
     flex-shrink: 0;
     border-bottom: 1px solid #333333;
-    position: relative; /* Mantém relative para o caso de futuros elementos */
+    position: relative; /* Mantém relative para o caso de elementos posicionados */
 }
 
 .logo-site {
     max-width: 180px; /* Tamanho original para desktop */
     height: auto;
     display: block;
-    margin: 0; /* Remove margens extras */
+    margin: 0; /* Garante que não tenha margens extras no desktop */
 }
 
 .search-container {
@@ -210,20 +211,23 @@ header {
 
 /* Media Queries para Responsividade */
 
-/* Para Desktop (min-width: 769px) - Oculta o botão de menu fixo para que ele só apareça na sidebar */
+/* Desktop (min-width: 769px) - MANTER INTACTO */
 @media (min-width: 769px) {
-    .menu-toggle-button {
-        display: none; /* Oculta o botão de menu que fica na tela */
-    }
-    .logo-site {
-        margin-left: 0; /* Garante que o logo volte à posição original em desktop */
+    /* O menu-toggle-button já é position: fixed no CSS global, então ele já está no canto superior esquerdo */
+    /* Nenhuma alteração de display ou posição específica aqui para desktop. */
+    /* O logo-site já tem margin: 0 no CSS global para desktop. */
+
+    .header-mobile-top {
+        display: contents; /* Faz a div não gerar uma caixa, apenas seus filhos aparecem no fluxo */
+        /* Isso garante que no desktop, o logo-site dentro dela se comporte como se estivesse diretamente no header */
     }
 }
 
-/* Para Mobile/Tablet (max-width: 768px) */
+
+/* Mobile/Tablet (max-width: 768px) - AJUSTAR APENAS AQUI */
 @media (max-width: 768px) {
     .menu-toggle-button {
-        position: static; /* Volta para o fluxo normal do documento */
+        position: static; /* Remove o fixed para que ele possa ser parte do flexbox */
         display: flex; /* Visível em mobile */
         margin-right: 10px; /* Espaço entre o ícone e o logo */
         top: auto; /* Remove top fixo */
@@ -239,15 +243,15 @@ header {
 
     /* Contêiner para o ícone de menu e logo no mobile */
     .header-mobile-top {
-        display: flex;
-        align-items: center;
-        justify-content: flex-start; /* Alinha à esquerda */
-        width: 100%;
+        display: flex; /* Torna a div um flex container */
+        align-items: center; /* Alinha verticalmente ícone e logo */
+        justify-content: flex-start; /* Alinha o grupo ícone+logo à esquerda */
+        width: 100%; /* Ocupa a largura total */
         margin-bottom: 10px; /* Espaço entre esta linha e a barra de pesquisa */
     }
 
     .logo-site {
-        max-width: 130px; /* Tamanho maior para o logo no celular */
+        max-width: 130px; /* Tamanho do logo no celular */
         height: auto;
         margin: 0; /* Remove margens extras */
     }
@@ -259,7 +263,7 @@ header {
         margin-left: 0;
     }
 
-    /* Sidebar e content-wrapper */
+    /* Sidebar e content-wrapper - manter como estava para mobile */
     .sidebar {
         left: -250px;
         width: 250px;
