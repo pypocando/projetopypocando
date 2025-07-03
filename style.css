@@ -11,15 +11,15 @@ body {
 
 /* Estilo do Cabeçalho */
 header {
-    background-color: #141414; /* Preto mais escuro para o cabeçalho, similar à Netflix */
+    background-color: black; /* Fundo preto para o cabeçalho, para mesclar com o fundo do body */
     padding: 15px 20px;
     display: flex;
     align-items: center;
     justify-content: space-between;
     width: 100%;
     box-sizing: border-box;
-    flex-shrink: 0; /* Impede que o cabeçalho encolha */
-    border-bottom: 1px solid #333333; /* Linha sutil de divisão */
+    flex-shrink: 0;
+    border-bottom: 1px solid #333333; /* Linha de divisão sutil */
 }
 
 .logo-site {
@@ -33,7 +33,7 @@ header {
 .search-container {
     display: flex;
     align-items: center;
-    background-color: #333333; /* Cinza médio para a barra de pesquisa */
+    background-color: #2A2A2A; /* Cinza do background da barra de pesquisa (mais claro que sidebar) */
     border-radius: 20px;
     padding: 5px 10px;
     flex-grow: 1;
@@ -74,20 +74,20 @@ header {
 
 /* Novo Wrapper para Sidebar e Conteúdo Principal */
 .main-content-wrapper {
-    display: flex; /* Para Sidebar e Main lado a lado */
-    flex-grow: 1; /* Ocupa o restante da altura disponível */
-    background-color: black; /* Fundo do wrapper para garantir cor uniforme */
+    display: flex;
+    flex-grow: 1;
+    background-color: black; /* Fundo preto para a área de conteúdo */
 }
 
 /* Estilo da Barra Lateral (Sidebar) */
 .sidebar {
     width: 250px; /* Largura da barra lateral */
-    background-color: #222222; /* Cinza escuro para a barra lateral */
+    background-color: #141414; /* Cinza escuro para a barra lateral, como na referência */
     padding: 20px 0;
     box-sizing: border-box;
-    flex-shrink: 0; /* Impede que a sidebar encolha */
-    overflow-y: auto; /* Rolagem se o conteúdo for muito longo */
-    border-right: 1px solid #333333; /* Linha sutil de divisão */
+    flex-shrink: 0;
+    overflow-y: auto;
+    border-right: 1px solid #333333; /* Linha de divisão sutil */
 }
 
 .sidebar nav ul {
@@ -106,29 +106,35 @@ header {
 }
 
 .sidebar nav ul li a:hover {
-    background-color: #333333; /* Cor de fundo ao passar o mouse */
-    color: #E20016; /* Cor do texto em vermelho ao passar o mouse */
+    background-color: #2A2A2A; /* Fundo do item em hover (mesma cor da barra de pesquisa) */
+    color: #FFFFFF; /* Texto branco em hover */
 }
+/* Estilo para um item de menu ativo na sidebar (opcional, para quando tivermos JS para isso) */
+/* .sidebar nav ul li a.active {
+    background-color: #E20016;
+    color: #FFFFFF;
+} */
+
 
 /* Estilo da Área Principal de Conteúdo */
 .main-area {
-    flex-grow: 1; /* Ocupa o restante do espaço na largura */
+    flex-grow: 1;
     padding: 20px;
     text-align: center;
-    background-color: black; /* Fundo do main para garantir cor uniforme */
-    overflow-y: auto; /* Rolagem se o conteúdo for muito longo */
+    background-color: black; /* Fundo do main para mesclar com o body */
+    overflow-y: auto;
 }
 
 /* Estilo do Rodapé */
 footer {
-    background-color: black;
+    background-color: black; /* Fundo preto para o rodapé, para mesclar com o body */
     padding: 10px;
     text-align: center;
     width: 100%;
     box-sizing: border-box;
     color: #FFFFFF;
-    flex-shrink: 0; /* Impede que o rodapé encolha */
-    border-top: 1px solid #333333; /* Linha sutil de divisão */
+    flex-shrink: 0;
+    border-top: 1px solid #333333; /* Linha de divisão sutil */
 }
 
 /* Media Queries para Responsividade */
@@ -151,15 +157,15 @@ footer {
     }
 
     .main-content-wrapper {
-        flex-direction: column; /* Sidebar e Main empilham em telas menores */
+        flex-direction: column;
     }
 
     .sidebar {
-        width: 100%; /* Sidebar ocupa toda a largura */
-        height: auto; /* Altura automática */
+        width: 100%;
+        height: auto;
         padding: 10px 0;
-        border-right: none; /* Remove borda da direita em mobile */
-        border-bottom: 1px solid #333333; /* Adiciona borda inferior para divisão */
+        border-right: none;
+        border-bottom: 1px solid #333333;
     }
 
     .sidebar nav ul {
