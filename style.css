@@ -4,12 +4,14 @@
   margin: 0;
   padding: 0;
 }
+
 body {
   font-family: Arial, sans-serif;
   background: #000;
   color: #fff;
   overflow-x: hidden;
 }
+
 .sidebar {
   position: fixed;
   top: 0;
@@ -20,24 +22,30 @@ body {
   transition: width 0.3s ease;
   z-index: 1000;
 }
+
 .sidebar.open {
   width: 250px;
 }
+
 .sidebar-header {
   padding: 20px;
   text-align: right;
 }
+
 .sidebar-close-button {
-  display: none; /* A visibilidade é controlada pelo JS */
+  display: none;
   cursor: pointer;
 }
+
 .sidebar nav ul {
   list-style: none;
   padding: 20px;
 }
+
 .sidebar nav ul li {
   margin: 20px 0;
 }
+
 .sidebar nav ul li a {
   color: #fff;
   text-decoration: none;
@@ -45,46 +53,48 @@ body {
 
 /* Conteúdo principal */
 .content-wrapper {
-  margin-left: 60px; /* Espaço para a sidebar fechada */
+  margin-left: 60px;
   transition: margin-left 0.3s ease;
-  padding: 20px; /* Adicionado padding para o conteúdo principal */
+  padding: 20px;
 }
+
 .sidebar.open ~ .content-wrapper {
-  margin-left: 250px; /* Desloca o conteúdo quando a sidebar abre */
+  margin-left: 250px;
 }
 
 header {
-  background: #222; /* Cor mais escura para o header */
+  background: #222;
   padding: 15px 20px;
-  display: flex;
-  flex-direction: column; /* Padrão para mobile: elementos empilhados */
 }
+
 .header-top-row {
   display: flex;
   align-items: center;
-  justify-content: flex-start; /* Alinha ícone e logo à esquerda no mobile */
+  justify-content: flex-start;
 }
+
 .menu-toggle-button {
   cursor: pointer;
-  margin-right: 15px; /* Espaçamento entre o ícone e o logo */
+  margin-right: 15px;
 }
+
 .logo-site {
-  height: 30px; /* Altura fixa para o logo */
+  height: 30px;
 }
+
 .search-container {
-  margin-top: 15px; /* Espaço entre a linha do logo e a barra de pesquisa no mobile */
-  width: 100%; /* Garante que a barra de pesquisa ocupe a largura total no mobile */
+  margin-top: 15px;
 }
+
 .search-input {
   width: 100%;
   padding: 10px;
   border: none;
   border-radius: 4px;
-  background-color: #333; /* Cor para o campo de busca */
-  color: #fff;
 }
+
 .search-button {
-  background: #FFA500; /* Cor do botão de pesquisa */
+  background: #FFA500;
   border: none;
   padding: 10px;
   margin-left: 5px;
@@ -93,48 +103,32 @@ header {
 
 /* Desktop ajustes */
 @media (min-width: 769px) {
-  header {
-    flex-direction: row; /* Elementos do cabeçalho em linha */
-    align-items: center;
-    justify-content: space-between; /* Espaço entre logo/ícone e barra de pesquisa */
-    padding-left: 70px; /* Cria um espaço para o botão de menu na área da sidebar */
-  }
-
   .header-top-row {
-    justify-content: flex-start; /* Alinha o grupo ícone/logo à esquerda do header */
-    flex: none; /* Não permite que este item cresça no desktop */
-    width: auto;
-  }
-
-  .menu-toggle-button {
-    position: absolute; /* Posiciona o ícone absolutamente */
-    top: 15px; /* Alinha verticalmente com o cabeçalho */
-    left: 15px; /* Coloca o ícone 15px da borda esquerda, dentro da área da sidebar */
-    margin-right: 0; /* Remove margem extra */
+    justify-content: flex-start;
   }
 
   .search-container {
-    margin-top: 0; /* Remove margem superior do mobile */
-    margin-left: auto; /* Empurra a barra de pesquisa para a direita */
+    margin-top: 0;
+    margin-left: auto;
     display: flex;
     align-items: center;
-    width: auto; /* Largura automática, limitada por search-input width */
+    width: auto;
   }
 
   .search-input {
-    width: 300px; /* Define largura específica para o campo de busca no desktop */
+    width: 300px;
   }
 
   .content-wrapper {
-    margin-left: 60px; /* Mantém a margem da sidebar */
+    margin-left: 60px;
   }
 
   .sidebar.open ~ .content-wrapper {
-    margin-left: 250px; /* Mantém o deslocamento */
+    margin-left: 250px;
   }
 
   .sidebar-close-button {
-    display: none !important; /* Garante que o botão de fechar não apareça no desktop */
+    display: none !important;
   }
 }
 
@@ -142,16 +136,14 @@ header {
 @media (max-width: 768px) {
   header {
     padding: 15px 20px;
-    align-items: flex-start; /* Alinha todos os elementos do header à esquerda no mobile */
   }
 
   .header-top-row {
-    flex-direction: row; /* Ícone e logo lado a lado */
-    justify-content: flex-start; /* Alinha ícone e logo à esquerda */
+    flex-direction: row;
+    justify-content: flex-start;
   }
 
   .menu-toggle-button {
-    position: static; /* Volta para o fluxo normal no mobile */
     margin-right: 15px;
   }
 
@@ -161,11 +153,9 @@ header {
 
   .search-container {
     margin-top: 15px;
-    max-width: none; /* Remove limite de largura */
-    width: 100%; /* Ocupa 100% da largura disponível */
-    display: flex; /* Garante que a barra de pesquisa seja um flex container */
-    justify-content: center; /* **Centraliza o conteúdo (input e botão) dentro da barra** */
-    margin-left: 0; /* Garante que não tenha margem extra */
-    margin-right: 0; /* Garante que não tenha margem extra */
+  }
+
+  .search-input {
+    width: 100%;
   }
 }
