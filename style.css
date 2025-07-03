@@ -82,6 +82,20 @@ body {
     margin-left: 250px; /* Empurra o conteúdo principal para a direita para revelar a barra lateral */
 }
 
+/* Estilos para o botão de fechar a sidebar */
+.close-sidebar-button {
+    position: absolute;
+    top: 15px; /* Ajuste a posição vertical conforme necessário */
+    right: 15px; /* Ajuste a posição horizontal conforme necessário */
+    font-size: 24px;
+    cursor: pointer;
+    color: #FFF; /* Cor do X */
+    z-index: 1001; /* Garante que o botão esteja acima de outros conteúdos da sidebar */
+    display: block; /* Visível por padrão no mobile quando a sidebar está ativa */
+    background-color: transparent;
+    border: none;
+}
+
 
 /* Header styles (Mobile-First - aplica-se a max-width: 768px) */
 header {
@@ -167,7 +181,7 @@ header {
         left: auto; /* Redefine qualquer deslocamento esquerdo do mobile */
         /* Nenhuma transição necessária para o estado estático, JS controlará a largura */
     }
-    /* Estilos para sidebar aberta no desktop (opcional, se quiser que ela se expanda) */
+    /* Estilos para sidebar expandida no desktop (se quiser que ela se expanda) */
     .sidebar.active {
         width: 250px; /* Largura expandida para desktop */
         left: auto; /* Garante que não use o 'left' do mobile */
@@ -186,6 +200,10 @@ header {
         margin-left: 0; /* No layout de grid, não empurramos o conteúdo com margin-left, ele se adapta */
     }
 
+    /* Oculta o botão de fechar no desktop, pois a sidebar é sempre visível ou controlada por largura */
+    .close-sidebar-button {
+        display: none; 
+    }
 
     header {
         flex-direction: row; /* Muda para layout horizontal no desktop */
