@@ -148,7 +148,9 @@ header {
 .header-top-row {
     display: flex;
     align-items: center;
-    width: auto; /* Ajustado pelo flexbox */
+    width: 100%; /* Ocupa a largura total no header */
+    justify-content: flex-start;
+    margin-bottom: 10px; /* Espaço entre a linha superior e a pesquisa no mobile */
 }
 
 .logo-site {
@@ -209,12 +211,13 @@ header {
 
 /* Media Queries para Responsividade */
 
-/* Desktop (min-width: 769px) - MANTER ISSO CORRETO! */
+/* Desktop (min-width: 769px) - MANTENDO ISSO CORRETO! */
 @media (min-width: 769px) {
     header {
         flex-direction: row; /* Elementos em linha no desktop */
         justify-content: space-between; /* Espaço entre o logo/ícone e a pesquisa */
         padding-left: 70px; /* Espaço para o ícone do menu que estará 'escondido' na lateral */
+        align-items: center; /* Alinha verticalmente o conteúdo do header */
     }
 
     .header-top-row {
@@ -229,7 +232,7 @@ header {
         top: 15px;
         left: 15px; /* Alinha com a sidebar */
         display: flex; /* Garante que seja visível no desktop */
-        margin-right: 0; /* Nenhuma margem extra quando absoluto */
+        margin-right: 10px; /* Adiciona um pouco de espaço à direita */
     }
 
     .logo-site {
@@ -245,7 +248,7 @@ header {
     }
 }
 
-/* Mobile/Tablet (max-width: 768px) - CORRIGIR ISSO! */
+/* Mobile/Tablet (max-width: 768px) - CORRIGINDO ISSO! */
 @media (max-width: 768px) {
     header {
         flex-direction: column; /* Empilha os elementos do cabeçalho */
@@ -276,11 +279,11 @@ header {
     .search-container {
         width: 100%; /* Barra de pesquisa de largura total */
         max-width: none; /* Substitui o max-width do desktop */
-        margin-top: 0; /* Redefine a margem superior, pois é tratada pela margem inferior de header-top-row */
+        margin-top: 0; /* Redefine a margem superior */
         margin-left: 0; /* Redefine a margem esquerda */
     }
 
-    /* Sidebar e content-wrapper para mobile (geralmente inalterados) */
+    /* Sidebar e content-wrapper para mobile */
     .sidebar {
         left: -250px; /* Inicialmente escondida */
         width: 250px;
