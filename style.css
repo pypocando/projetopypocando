@@ -9,17 +9,17 @@ body {
     overflow-x: hidden;
 }
 
-/* Botão de Menu (3 traços) - Este é o botão que ESTÁ NO HTML */
+/* Base style for menu toggle button - it will be inside header */
 .menu-toggle-button {
     color: #FFFFFF;
     cursor: pointer;
-    z-index: 1050;
+    z-index: 1050; /* High z-index for clickability */
     background-color: transparent;
     border: none;
     padding: 0;
     width: 24px;
     height: 24px;
-    display: flex; /* Para centralizar o SVG */
+    display: flex;
     align-items: center;
     justify-content: center;
 }
@@ -29,12 +29,12 @@ body {
     height: 24px;
 }
 
-/* Barra Lateral (Sidebar) */
+/* Sidebar styles (mostly unchanged) */
 .sidebar {
     position: fixed;
     top: 0;
     left: 0;
-    width: 60px; /* Largura inicial fina */
+    width: 60px;
     background-color: #141414;
     color: #FFFFFF;
     box-sizing: border-box;
@@ -42,17 +42,16 @@ body {
     overflow-y: auto;
     height: 100%;
     transition: width 0.3s ease, left 0.3s ease;
-    padding-top: 15px; /* Espaço no topo */
+    padding-top: 15px;
     border-right: 1px solid #333333;
     display: flex;
     flex-direction: column;
 }
 
 .sidebar.open {
-    width: 250px; /* Largura ao expandir */
+    width: 250px;
 }
 
-/* Cabeçalho da Sidebar (contém o botão de fechar) */
 .sidebar-header {
     display: flex;
     justify-content: flex-end;
@@ -104,7 +103,6 @@ body {
     background-color: #2A2A2A;
 }
 
-/* Esconder o texto dos links na sidebar fina */
 .sidebar:not(.open) nav ul li a span {
     opacity: 0;
     transition: opacity 0.1s ease;
@@ -116,42 +114,48 @@ body {
     padding: 15px 0;
 }
 
-/* Conteúdo Principal (que terá o desfoque) */
+/* Content wrapper and header */
 .content-wrapper {
     flex-grow: 1;
     display: flex;
     flex-direction: column;
-    margin-left: 60px; /* Começa à direita da sidebar fina (onde o menu toggle button fica em desktop) */
+    margin-left: 60px; /* Space for the initial sidebar */
     transition: margin-left 0.3s ease, filter 0.3s ease;
     background-color: black;
 }
 
-/* Efeito de desfoque e ajuste de margem quando a sidebar está aberta */
 body.menu-open .content-wrapper {
     filter: blur(5px);
     pointer-events: none;
     user-select: none;
-    margin-left: 250px; /* Move o conteúdo para a direita da sidebar expandida */
+    margin-left: 250px; /* Moves content when sidebar expands */
 }
 
-/* Cabeçalho */
 header {
     background-color: black;
     padding: 15px 20px;
-    display: flex;
-    align-items: center;
+    display: flex; /* Flex container para seus filhos diretos */
+    align-items: center; /* Alinha itens verticalmente no header */
     width: 100%;
     box-sizing: border-box;
     flex-shrink: 0;
     border-bottom: 1px solid #333333;
-    position: relative; /* Para posicionamento absoluto dos elementos internos */
+    position: relative; /* Essencial para posicionamento absoluto de filhos */
+    flex-wrap: wrap; /* Permite que a barra de pesquisa quebre linha no mobile */
+}
+
+/* Novo wrapper para ícone e logo no cabeçalho */
+.header-top-row {
+    display: flex;
+    align-items: center;
+    width: auto; /* Ajustado pelo flexbox */
 }
 
 .logo-site {
-    max-width: 180px; /* Tamanho original para desktop */
+    max-width: 180px; /* Tamanho padrão */
     height: auto;
     display: block;
-    margin: 0; /* Garante que não tenha margens extras no desktop */
+    margin: 0;
 }
 
 .search-container {
@@ -161,8 +165,7 @@ header {
     border-radius: 20px;
     padding: 5px 10px;
     flex-grow: 1;
-    max-width: 400px;
-    margin-left: 20px;
+    max-width: 400px; /* Max-width padrão para desktop */
 }
 
 .search-input {
@@ -206,87 +209,99 @@ header {
 
 /* Media Queries para Responsividade */
 
-/* Desktop (min-width: 769px) - MANTER INTACTO */
+/* Desktop (min-width: 769px) - MANTER ISSO CORRETO! */
 @media (min-width: 769px) {
     header {
-        justify-content: space-between; /* Alinha logo à esquerda e pesquisa à direita */
-        padding-left: 70px; /* Adiciona espaço para o botão de menu invisível que está na sidebar */
+        flex-direction: row; /* Elementos em linha no desktop */
+        justify-content: space-between; /* Espaço entre o logo/ícone e a pesquisa */
+        padding-left: 70px; /* Espaço para o ícone do menu que estará 'escondido' na lateral */
+    }
+
+    .header-top-row {
+        /* No desktop, este wrapper contém o logo e o ícone, mas o ícone será posicionado absolutamente */
+        width: auto;
+        justify-content: flex-start; /* Garante que o logo esteja alinhado à esquerda dentro deste wrapper */
+        order: 1; /* Mantém como primeiro elemento no header */
     }
 
     .menu-toggle-button {
-        position: absolute; /* Agora é absoluto em relação ao header */
+        position: absolute; /* Puxa o ícone para fora do fluxo normal, na área da sidebar */
         top: 15px;
-        left: 15px; /* Posição dentro do header */
-        display: flex; /* Visível no desktop, mas posicionado onde a sidebar está */
+        left: 15px; /* Alinha com a sidebar */
+        display: flex; /* Garante que seja visível no desktop */
+        margin-right: 0; /* Nenhuma margem extra quando absoluto */
     }
 
     .logo-site {
-        margin-left: 0; /* Volta o logo para o alinhamento normal */
+        max-width: 180px; /* Tamanho padrão do desktop */
+        margin-left: 0; /* Nenhuma margem extra */
     }
 
     .search-container {
-        margin-left: 20px; /* Mantém o espaçamento padrão */
+        flex-grow: 0; /* Não cresce, mantém seu max-width */
+        max-width: 400px;
+        margin-left: 20px; /* Espaçamento padrão */
+        order: 2; /* Mantém como segundo elemento no header */
     }
 }
 
-/* Mobile/Tablet (max-width: 768px) - AJUSTAR APENAS AQUI */
+/* Mobile/Tablet (max-width: 768px) - CORRIGIR ISSO! */
 @media (max-width: 768px) {
     header {
-        flex-direction: column; /* Ícone/logo e barra de pesquisa empilhados */
-        align-items: flex-start; /* Alinha tudo à esquerda */
-        padding: 10px 15px;
-        flex-wrap: wrap; /* Permite que a barra de pesquisa quebre linha */
-        justify-content: flex-start; /* Garante que o conteúdo começa na esquerda */
+        flex-direction: column; /* Empilha os elementos do cabeçalho */
+        align-items: flex-start; /* Alinha todo o conteúdo à esquerda */
+        padding: 10px 15px; /* Ajusta o preenchimento para mobile */
+        justify-content: flex-start;
+    }
+
+    .header-top-row {
+        display: flex; /* Torna o wrapper uma linha flex para ícone e logo */
+        align-items: center;
+        width: 100%; /* Ocupa a largura total */
+        margin-bottom: 10px; /* Espaço entre esta linha e a barra de pesquisa */
+        justify-content: flex-start; /* Alinha ícone e logo ao início */
     }
 
     .menu-toggle-button {
-        position: static; /* Volta para o fluxo normal do flexbox do header */
-        display: flex; /* Garante que é visível */
+        position: static; /* Permite que ele flua normalmente dentro de header-top-row */
+        display: flex; /* Garante que seja visível */
         margin-right: 10px; /* Espaço entre o ícone e o logo */
-        order: 1; /* Garante que ele seja o primeiro elemento na linha */
     }
 
     .logo-site {
-        max-width: 130px; /* Tamanho do logo no celular */
-        height: auto;
-        margin: 0; /* Remove margens extras */
-        order: 2; /* Garante que ele seja o segundo elemento na linha */
+        max-width: 130px; /* Logo menor para mobile */
+        margin-left: 0; /* Nenhuma margem extra */
     }
 
     .search-container {
-        width: 100%; /* Ocupa a largura total */
-        max-width: none; /* Remove max-width */
-        margin-top: 10px; /* Espaço entre a linha de cima e a barra de pesquisa */
-        margin-left: 0; /* Remove margem esquerda */
-        order: 3; /* Garante que ele seja o terceiro elemento (próxima linha) */
+        width: 100%; /* Barra de pesquisa de largura total */
+        max-width: none; /* Substitui o max-width do desktop */
+        margin-top: 0; /* Redefine a margem superior, pois é tratada pela margem inferior de header-top-row */
+        margin-left: 0; /* Redefine a margem esquerda */
     }
 
-    /* Sidebar e content-wrapper - manter como estava para mobile */
+    /* Sidebar e content-wrapper para mobile (geralmente inalterados) */
     .sidebar {
-        left: -250px;
+        left: -250px; /* Inicialmente escondida */
         width: 250px;
-        padding-top: 55px;
+        padding-top: 55px; /* Ajusta para a altura do cabeçalho */
     }
 
     .sidebar.open {
-        left: 0;
+        left: 0; /* Visível quando aberta */
     }
 
     .content-wrapper {
-        margin-left: 0;
+        margin-left: 0; /* Nenhuma margem da sidebar quando escondida */
     }
 
     body.menu-open .content-wrapper {
-        margin-left: 0;
-    }
-
-    .sidebar-close-button {
-        display: block;
+        margin-left: 0; /* Ainda sem margem quando a sidebar está aberta */
     }
 }
 
 @media (max-width: 480px) {
     .logo-site {
-        max-width: 110px; /* Ajuste final para telas muito pequenas */
+        max-width: 110px; /* Logo ainda menor para telas muito pequenas */
     }
 }
