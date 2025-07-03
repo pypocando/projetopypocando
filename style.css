@@ -2,27 +2,27 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: black; /* Fundo totalmente preto */
+    background-color: black; /* Fundo totalmente preto para todo o corpo */
     color: #f0f0f0; /* Cor do texto clara */
 }
 
 header {
-    background-color: #0d0d0d; /* Mantém o fundo escuro do cabeçalho */
-    padding: 20px 30px; /* Mais padding à esquerda para o logo */
+    background-color: black; /* Fundo preto para o cabeçalho */
+    padding: 20px 30px; /* Mais padding à esquerda para o logo, como na Netflix */
     text-align: left; /* Alinha o conteúdo do cabeçalho à esquerda */
     width: 100%; /* Garante que o cabeçalho ocupe toda a largura */
     box-sizing: border-box; /* Inclui padding na largura total */
 }
 
 h1 {
-    /* Estilo para o nome PYPOCANDO */
-    color: #FFA500; /* Laranja brilhante */
-    text-shadow: 0 0 10px #FFA500, 0 0 20px #FFA500, 0 0 30px #FFA500; /* Efeito neon */
-    font-family: 'Impact', 'Haettenschweiler', 'Arial Narrow Bold', sans-serif; /* Fonte impactante */
+    /* Estilo para o nome PYPOCANDO, limpo e forte como Netflix */
+    color: #FF6600; /* Laranja forte e legível (sem brilho excessivo) */
+    /* text-shadow removido para eliminar o efeito neon */
+    font-family: 'Arial Black', Gadget, sans-serif; /* Fonte forte e limpa */
     text-transform: uppercase; /* Garante que esteja em maiúsculas */
-    font-size: 3em; /* Tamanho maior para destaque */
+    font-size: 2.5em; /* Tamanho ajustado para ser visível e limpo, como na Netflix */
     margin: 0; /* Remove margem padrão para melhor posicionamento */
-    display: inline-block; /* Para garantir que o text-shadow funcione bem */
+    display: inline-block; /* Para garantir alinhamento e dimensões corretas */
 }
 
 main {
@@ -32,7 +32,7 @@ main {
 }
 
 footer {
-    background-color: #0d0d0d;
+    background-color: black; /* Fundo preto para o rodapé */
     padding: 10px;
     text-align: center;
     position: fixed; /* Fixa o rodapé na parte inferior */
