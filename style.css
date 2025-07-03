@@ -22,11 +22,8 @@ body {
     display: flex; /* Para centralizar o SVG */
     align-items: center;
     justify-content: center;
-    /* Posição absoluta dentro do header para alinhar em desktop */
-    position: absolute;
-    top: 15px;
-    left: 15px; /* Volta para a esquerda */
-    display: flex; /* Garante que esteja visível por padrão em desktop */
+    /* Em desktop, este botão estará na sidebar fina. Fora de media queries, ele é flexível */
+    display: none; /* Oculta por padrão em desktop, ele será ativado via JS */
 }
 
 .menu-toggle-button svg {
@@ -47,7 +44,7 @@ body {
     overflow-y: auto;
     height: 100%; /* Ocupa a altura total da tela */
     transition: width 0.3s ease, left 0.3s ease; /* Animação para largura e posição */
-    padding-top: 15px; /* Espaço no topo, alinhado com o botão de menu */
+    padding-top: 15px; /* Espaço no topo */
     border-right: 1px solid #333333; /* Linha de divisão */
     display: flex; /* Permite alinhar o header da sidebar e a nav em coluna */
     flex-direction: column;
@@ -150,7 +147,7 @@ header {
     box-sizing: border-box;
     flex-shrink: 0;
     border-bottom: 1px solid #333333;
-    position: relative; /* Necessário para posicionar o menu-toggle-button absolutamente em desktop */
+    position: relative; /* Necessário para posicionar elementos internos se houver */
 }
 
 .logo-site {
@@ -211,6 +208,22 @@ header {
 }
 
 /* Media Queries para Responsividade */
+@media (min-width: 769px) { /* Para Desktop */
+    .menu-toggle-button {
+        /* Garante que o menu toggle button esteja no canto superior esquerdo do header em desktop */
+        position: absolute;
+        top: 15px;
+        left: 15px;
+        display: flex; /* Visível em desktop */
+        z-index: 10;
+    }
+
+    header .logo-site {
+        margin-left: 60px; /* Adiciona margem para afastar do menu button */
+    }
+}
+
+
 @media (max-width: 768px) {
     header {
         flex-direction: column; /* Coloca os elementos em coluna */
@@ -219,72 +232,60 @@ header {
         position: relative; /* Garante que o header seja o contêiner de posicionamento */
     }
 
+    /* Contêiner para o ícone de menu e logo no mobile */
+    .header-mobile-top {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start; /* Alinha à esquerda */
+        width: 100%; /* Ocupa a largura total */
+        margin-bottom: 10px; /* Espaço entre esta linha e a barra de pesquisa */
+        padding-left: 15px; /* Alinha com a borda do header */
+    }
+
     .menu-toggle-button {
-        position: absolute; /* Posição absoluta dentro do header */
-        top: 15px; /* Alinha no topo do header */
-        left: 15px; /* Alinha à esquerda */
-        right: auto; /* Remove o right: 15px do desktop */
-        display: flex; /* Garante que esteja visível e use flex */
-        z-index: 10; /* Garante que fique por cima de outros elementos se houver sobreposição */
+        position: static; /* Volta para o fluxo normal do documento */
+        margin-right: 10px; /* Espaço entre o ícone e o logo */
+        display: flex; /* Sempre visível em mobile */
     }
 
     .logo-site {
-        max-width: 150px; /* AUMENTADO: Logo um pouco maior em mobile */
-        margin: 15px auto 10px auto; /* Centraliza o logo e adiciona margens superior/inferior */
+        max-width: 130px; /* Tamanho maior para o logo no celular */
+        height: auto;
+        margin: 0; /* Remove margens extras */
     }
 
     .search-container {
         width: 100%; /* Ocupa a largura total */
-        max-width: 400px; /* Mantém um max-width para telas maiores que mobile mas menores que desktop */
+        max-width: 400px;
         margin-top: 0;
         margin-left: 0;
     }
 
-    /* Em telas pequenas, a sidebar está sempre "fechada" (totalmente fora da tela) e é acionada pelo botão de menu */
     .sidebar {
-        left: -250px; /* Esconde a sidebar totalmente fora da tela */
-        width: 250px; /* Largura total quando visível */
-        padding-top: 55px; /* Ajusta o padding top para não sobrepor o cabeçalho */
+        left: -250px;
+        width: 250px;
+        padding-top: 55px;
     }
 
     .sidebar.open {
-        left: 0; /* Traz a sidebar para dentro da tela */
+        left: 0;
     }
 
-    /* O conteúdo principal ocupa toda a largura, e o desfoque se aplica a ele */
     .content-wrapper {
         margin-left: 0;
     }
 
     body.menu-open .content-wrapper {
-        margin-left: 0; /* Não move o conteúdo, apenas desfoca */
+        margin-left: 0;
     }
 
-    /* Ocultar o botão de fechar da sidebar quando a sidebar está recolhida (em mobile ele não estaria visível de qualquer forma) */
     .sidebar-close-button {
-        display: block; /* O botão de fechar é sempre visível quando a sidebar está aberta em mobile */
+        display: block;
     }
 }
 
 @media (max-width: 480px) {
-    header {
-        padding: 10px 10px; /* Reduz ainda mais o padding em telas menores */
-    }
-
     .logo-site {
-        max-width: 130px; /* AUMENTADO: Logo ainda maior em celulares muito pequenos */
-    }
-
-    .search-input {
-        font-size: 0.85em; /* Fonte menor na barra de pesquisa */
-    }
-
-    .search-icon {
-        width: 18px;
-        height: 18px;
-    }
-
-    .menu-toggle-button {
-        top: 12px; /* Ajusta a posição do botão de menu em telas menores */
+        max-width: 110px; /* Ajuste final para telas muito pequenas */
     }
 }
