@@ -4,19 +4,16 @@ body {
     padding: 0;
     background-color: black;
     color: #FFFFFF;
-    display: flex; /* Permite que o menu-toggle-button, sidebar e content-wrapper se organizem */
+    display: flex;
     min-height: 100vh;
     overflow-x: hidden;
 }
 
-/* Botão de Menu (3 traços) - Comportamento PADRÃO para Desktop (no canto superior esquerdo da tela) */
+/* Botão de Menu (3 traços) - Este é o botão que ESTÁ NO HTML */
 .menu-toggle-button {
-    position: fixed; /* Fixo na tela */
-    top: 15px;
-    left: 15px;
     color: #FFFFFF;
     cursor: pointer;
-    z-index: 1050; /* Acima de tudo para ser clicável */
+    z-index: 1050;
     background-color: transparent;
     border: none;
     padding: 0;
@@ -45,7 +42,7 @@ body {
     overflow-y: auto;
     height: 100%;
     transition: width 0.3s ease, left 0.3s ease;
-    padding-top: 15px; /* Espaço no topo, alinhado com o botão de menu */
+    padding-top: 15px; /* Espaço no topo */
     border-right: 1px solid #333333;
     display: flex;
     flex-direction: column;
@@ -143,12 +140,11 @@ header {
     padding: 15px 20px;
     display: flex;
     align-items: center;
-    justify-content: space-between;
     width: 100%;
     box-sizing: border-box;
     flex-shrink: 0;
     border-bottom: 1px solid #333333;
-    position: relative; /* Essencial para elementos posicionados, mas no desktop não terá muita utilidade aqui */
+    position: relative; /* Para posicionamento absoluto dos elementos internos */
 }
 
 .logo-site {
@@ -212,69 +208,57 @@ header {
 
 /* Desktop (min-width: 769px) - MANTER INTACTO */
 @media (min-width: 769px) {
-    /* O menu-toggle-button já é position: fixed no CSS global, então ele já está no canto superior esquerdo. */
-    /* Ocultamos ele DENTRO do header para desktop, pois o global já funciona como o botão da sidebar. */
-    header .menu-toggle-button {
-        display: none; /* Esconde o botão se ele estiver dentro do header no desktop, pois o global já existe */
+    header {
+        justify-content: space-between; /* Alinha logo à esquerda e pesquisa à direita */
+        padding-left: 70px; /* Adiciona espaço para o botão de menu invisível que está na sidebar */
     }
 
-    /* O logo-site deve estar alinhado com o conteúdo, após a barra lateral. */
+    .menu-toggle-button {
+        position: absolute; /* Agora é absoluto em relação ao header */
+        top: 15px;
+        left: 15px; /* Posição dentro do header */
+        display: flex; /* Visível no desktop, mas posicionado onde a sidebar está */
+    }
+
     .logo-site {
-        margin-left: 0; /* Remove qualquer margem que possa ter vindo de outras regras */
+        margin-left: 0; /* Volta o logo para o alinhamento normal */
     }
 
-    /* O search-container pode usar o margin-left padrão. */
     .search-container {
-        margin-left: 20px;
+        margin-left: 20px; /* Mantém o espaçamento padrão */
     }
 }
 
 /* Mobile/Tablet (max-width: 768px) - AJUSTAR APENAS AQUI */
 @media (max-width: 768px) {
-    /* Ocultar o botão global do menu para que ele não apareça duas vezes no mobile */
-    body > .menu-toggle-button {
-        display: none;
-    }
-
     header {
-        flex-direction: column; /* Coloca os elementos em coluna */
-        align-items: center; /* Centraliza horizontalmente */
+        flex-direction: column; /* Ícone/logo e barra de pesquisa empilhados */
+        align-items: flex-start; /* Alinha tudo à esquerda */
         padding: 10px 15px;
-        flex-wrap: wrap; /* Permite quebrar linha para a barra de pesquisa */
+        flex-wrap: wrap; /* Permite que a barra de pesquisa quebre linha */
+        justify-content: flex-start; /* Garante que o conteúdo começa na esquerda */
     }
 
-    /* Agora, para o botão de menu e logo lado a lado e centralizados */
-    header::before { /* Usamos um pseudo-elemento para criar o ícone de 3 traços */
-        content: ''; /* Conteúdo vazio para o pseudo-elemento */
-        display: block; /* Essencial para aplicar largura/altura e posicionamento */
-        width: 24px; /* Largura do ícone */
-        height: 24px; /* Altura do ícone */
-        background: url('data:image/svg+xml;utf8,<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>') no-repeat center center;
-        background-size: contain;
-        position: absolute; /* Posição absoluta em relação ao header */
-        top: 10px; /* Ajusta a posição vertical */
-        left: 15px; /* Alinha à esquerda */
-        cursor: pointer;
-        z-index: 10; /* Garante que esteja acima do logo */
+    .menu-toggle-button {
+        position: static; /* Volta para o fluxo normal do flexbox do header */
+        display: flex; /* Garante que é visível */
+        margin-right: 10px; /* Espaço entre o ícone e o logo */
+        order: 1; /* Garante que ele seja o primeiro elemento na linha */
     }
-    
+
     .logo-site {
         max-width: 130px; /* Tamanho do logo no celular */
         height: auto;
         margin: 0; /* Remove margens extras */
-        margin-left: 35px; /* Espaço para o ícone do menu que será criado */
+        order: 2; /* Garante que ele seja o segundo elemento na linha */
     }
 
     .search-container {
         width: 100%; /* Ocupa a largura total */
-        max-width: none; /* Remove max-width para ocupar todo espaço disponível */
+        max-width: none; /* Remove max-width */
         margin-top: 10px; /* Espaço entre a linha de cima e a barra de pesquisa */
-        margin-left: 0;
-    }
-
-    /* Esconde o menu-toggle-button original dentro do header no mobile */
-    header .menu-toggle-button {
-        display: none; /* Garante que o botão original HTML dentro do header não apareça no mobile */
+        margin-left: 0; /* Remove margem esquerda */
+        order: 3; /* Garante que ele seja o terceiro elemento (próxima linha) */
     }
 
     /* Sidebar e content-wrapper - manter como estava para mobile */
