@@ -2,13 +2,77 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: black;
-    color: #FFFFFF;
+    background-color: black; /* Fundo totalmente preto para todo o corpo */
+    color: #FFFFFF; /* Cor do texto geral em branco puro */
+    display: flex; /* Para organizar header, main-layout e footer em coluna */
+    flex-direction: column;
+    min-height: 100vh; /* Garante que o body ocupe a altura total da tela */
 }
 
-.wrapper {
-    display: flex; /* Permite que a sidebar e o content fiquem lado a lado */
-    min-height: 100vh; /* Garante que o wrapper ocupe a altura total da tela */
+header {
+    background-color: black;
+    padding: 15px 20px;
+    display: flex; /* Usamos flexbox para alinhar logo e barra */
+    align-items: center; /* Alinha verticalmente */
+    justify-content: space-between; /* Espaça o logo e a barra */
+    width: 100%;
+    box-sizing: border-box;
+    flex-shrink: 0; /* Impede que o header encolha */
+}
+
+.logo-site {
+    max-width: 180px;
+    height: auto;
+    display: block;
+    margin: 0;
+}
+
+.search-container {
+    display: flex;
+    align-items: center;
+    background-color: #333333; /* Cinza escuro que combina com a paleta */
+    border-radius: 20px; /* Bordas arredondadas */
+    padding: 5px 10px;
+    flex-grow: 1; /* Permite que a barra de pesquisa ocupe o espaço disponível */
+    max-width: 400px; /* Largura máxima para desktops */
+    margin-left: 20px; /* Espaço entre o logo e a barra de pesquisa */
+}
+
+.search-input {
+    background-color: transparent; /* Fundo transparente */
+    border: none; /* Sem borda */
+    outline: none; /* Remove a borda de foco padrão */
+    color: #FFFFFF; /* Cor do texto digitado em branco */
+    font-size: 1em;
+    padding: 5px;
+    flex-grow: 1; /* Ocupa o máximo de espaço dentro do container */
+    margin-right: 5px; /* Espaço entre o texto e o ícone */
+}
+
+.search-input::placeholder {
+    color: #BBBBBB; /* Cor do placeholder "Pesquisar" em um cinza mais claro */
+}
+
+.search-button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    display: flex; /* Para centralizar o ícone */
+    align-items: center;
+    justify-content: center;
+}
+
+.search-icon {
+    color: #BBBBBB; /* Cor do ícone da lupa */
+    width: 20px;
+    height: 20px;
+}
+
+/* Novo container para o layout principal (sidebar + main content) */
+.main-layout {
+    display: flex; /* Sidebar e Main lado a lado */
+    flex-grow: 1; /* Ocupa o restante da altura disponível */
 }
 
 .sidebar {
@@ -17,6 +81,7 @@ body {
     padding: 20px 0;
     box-sizing: border-box;
     flex-shrink: 0; /* Impede que a sidebar encolha */
+    overflow-y: auto; /* Adiciona scroll se o conteúdo for muito longo */
 }
 
 .sidebar nav ul {
@@ -37,133 +102,65 @@ body {
     background-color: #333333; /* Cinza um pouco mais claro ao passar o mouse */
 }
 
-.content {
-    flex-grow: 1; /* Ocupa o restante do espaço disponível */
-    display: flex; /* Para organizar header, main e footer em coluna */
-    flex-direction: column;
-}
-
-header {
-    background-color: black;
-    padding: 15px 20px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
-    box-sizing: border-box;
-    position: sticky; /* Fixa o cabeçalho no topo ao rolar */
-    top: 0;
-    z-index: 1000; /* Garante que o cabeçalho fique acima de outros elementos */
-}
-
-.logo-site {
-    max-width: 180px;
-    height: auto;
-    display: block;
-    margin: 0;
-}
-
-.search-container {
-    display: flex;
-    align-items: center;
-    background-color: #333333;
-    border-radius: 20px;
-    padding: 5px 10px;
-    flex-grow: 1;
-    max-width: 400px;
-    margin-left: 20px; /* Espaço entre o logo e a barra de pesquisa */
-}
-
-.search-input {
-    background-color: transparent;
-    border: none;
-    outline: none;
-    color: #FFFFFF;
-    font-size: 1em;
-    padding: 5px;
-    flex-grow: 1;
-    margin-right: 5px;
-}
-
-.search-input::placeholder {
-    color: #BBBBBB;
-}
-
-.search-button {
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
-    padding: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.search-icon {
-    color: #BBBBBB;
-    width: 20px;
-    height: 20px;
-}
-
 main {
+    flex-grow: 1; /* Ocupa o restante do espaço disponível na largura */
     padding: 20px;
     text-align: center;
-    flex-grow: 1; /* Permite que o main ocupe o espaço restante */
+    background-color: black; /* Garante que o main tenha fundo preto */
+    overflow-y: auto; /* Adiciona scroll se o conteúdo for muito longo */
 }
 
 footer {
     background-color: black;
     padding: 10px;
     text-align: center;
-    /* position: fixed; removido, pois o footer estará dentro do content e rolará com ele */
-    bottom: 0;
-    width: 100%;
+    width: 100%; /* Garante que o rodapé ocupe toda a largura */
     box-sizing: border-box;
     color: #FFFFFF;
+    flex-shrink: 0; /* Impede que o footer encolha */
 }
 
 /* Media Queries para Responsividade */
 @media (max-width: 768px) {
-    .wrapper {
-        flex-direction: column; /* Em telas menores, sidebar e content empilham */
+    header {
+        flex-direction: column; /* Em telas menores, logo e barra empilham */
+        align-items: flex-start; /* Alinha logo e barra à esquerda */
+        padding: 10px 15px; /* Reduz padding */
+    }
+
+    .search-container {
+        width: calc(100% - 30px); /* Ocupa quase toda a largura */
+        margin-top: 10px; /* Espaço entre o logo e a barra */
+        max-width: none; /* Remove a largura máxima para se adaptar */
+        margin-left: 0; /* Remove margem para centralizar em mobile */
+    }
+
+    .logo-site {
+        max-width: 150px; /* Diminui um pouco o logo em telas menores */
+    }
+
+    .main-layout {
+        flex-direction: column; /* Sidebar e Main empilham em telas menores */
     }
 
     .sidebar {
         width: 100%; /* Sidebar ocupa toda a largura */
+        height: auto; /* Altura automática */
         padding: 10px 0;
-        /* Temporariamente visível, mas pode ser escondida por padrão e revelada por um botão */
+        /* Para mobile, podemos até ocultar o sidebar por padrão e mostrar com um botão menu */
+        /* display: none; /* Exemplo de como esconder */
     }
 
     .sidebar nav ul {
         display: flex; /* Itens da lista em linha para mobile */
         flex-wrap: wrap; /* Quebra linha se não couber */
         justify-content: center; /* Centraliza os itens */
+        gap: 5px; /* Espaço entre os itens */
     }
 
     .sidebar nav ul li a {
         padding: 8px 15px; /* Reduz padding dos itens da sidebar */
         font-size: 0.9em;
-    }
-
-    header {
-        flex-direction: column;
-        align-items: flex-start;
-        padding: 10px 15px;
-    }
-
-    .search-container {
-        width: calc(100% - 30px);
-        margin-top: 10px;
-        max-width: none;
-        margin-left: 0; /* Remove margem para centralizar em mobile */
-    }
-
-    .logo-site {
-        max-width: 150px;
-    }
-
-    footer {
-        position: static; /* Footer volta a ser estático em mobile */
     }
 }
 
