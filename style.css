@@ -8,36 +8,107 @@ body {
 
 header {
     background-color: black; /* Fundo preto para o cabeçalho */
-    padding: 15px 20px; /* Ajuste do padding para ficar mais perto das laterais e menor */
-    text-align: left; /* Alinha o conteúdo do cabeçalho à esquerda */
-    width: 100%; /* Garante que o cabeçalho ocupe toda a largura */
-    box-sizing: border-box; /* Inclui padding na largura total */
+    padding: 15px 20px;
+    display: flex; /* Usamos flexbox para alinhar logo e barra */
+    align-items: center; /* Alinha verticalmente */
+    justify-content: space-between; /* Espaça o logo e a barra */
+    width: 100%;
+    box-sizing: border-box;
 }
 
-/* Removido o estilo do h1, pois agora será uma imagem */
-
 .logo-site {
-    /* Estilo para a imagem do logo pypocando */
-    max-width: 180px; /* Ajusta o tamanho da imagem, deixando-a um pouco menor */
-    height: auto; /* Mantém a proporção da imagem */
-    display: block; /* Garante que ela ocupe seu próprio espaço */
-    margin: 0; /* Remove margens padrão que a imagem possa ter */
-    /* A cor da imagem é definida no próprio arquivo .png */
+    max-width: 180px;
+    height: auto;
+    display: block;
+    margin: 0;
+}
+
+/* Estilo para a Barra de Pesquisa */
+.search-container {
+    display: flex; /* Usa flexbox para alinhar input e botão da lupa */
+    align-items: center;
+    background-color: #333333; /* Cinza escuro que combina com a paleta */
+    border-radius: 20px; /* Bordas arredondadas */
+    padding: 5px 10px;
+    flex-grow: 1; /* Permite que a barra de pesquisa ocupe o espaço disponível */
+    max-width: 400px; /* Largura máxima para desktops */
+    margin: 0 auto; /* Centraliza a barra de pesquisa no espaço restante */
+}
+
+.search-input {
+    background-color: transparent; /* Fundo transparente */
+    border: none; /* Sem borda */
+    outline: none; /* Remove a borda de foco padrão */
+    color: #FFFFFF; /* Cor do texto digitado em branco */
+    font-size: 1em;
+    padding: 5px;
+    flex-grow: 1; /* Ocupa o máximo de espaço dentro do container */
+    margin-right: 5px; /* Espaço entre o texto e o ícone */
+}
+
+.search-input::placeholder {
+    color: #BBBBBB; /* Cor do placeholder "Pesquisar" em um cinza mais claro */
+}
+
+.search-button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    display: flex; /* Para centralizar o ícone */
+    align-items: center;
+    justify-content: center;
+}
+
+.search-icon {
+    color: #BBBBBB; /* Cor do ícone da lupa */
+    width: 20px;
+    height: 20px;
 }
 
 main {
     padding: 20px;
     text-align: center;
-    min-height: calc(100vh - 130px); /* Ajusta a altura mínima para o rodapé fixo */
+    min-height: calc(100vh - 130px);
 }
 
 footer {
-    background-color: black; /* Fundo preto para o rodapé */
+    background-color: black;
     padding: 10px;
     text-align: center;
-    position: fixed; /* Fixa o rodapé na parte inferior */
-    bottom: 0; /* Alinha o rodapé à parte inferior */
-    width: 100%; /* Garante que o rodapé ocupe toda a largura */
-    box-sizing: border-box; /* Inclui padding na largura total */
-    color: #FFFFFF; /* Cor do texto do rodapé em branco puro */
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    box-sizing: border-box;
+    color: #FFFFFF;
+}
+
+/* Media Queries para Responsividade */
+@media (max-width: 768px) {
+    header {
+        flex-direction: column; /* Em telas menores, logo e barra empilham */
+        align-items: flex-start; /* Alinha logo e barra à esquerda */
+        padding: 10px 15px; /* Reduz padding */
+    }
+
+    .search-container {
+        width: calc(100% - 30px); /* Ocupa quase toda a largura */
+        margin-top: 10px; /* Espaço entre o logo e a barra */
+        max-width: none; /* Remove a largura máxima para se adaptar */
+    }
+
+    .logo-site {
+        max-width: 150px; /* Diminui um pouco o logo em telas menores */
+    }
+}
+
+@media (max-width: 480px) {
+    .search-input {
+        font-size: 0.9em;
+    }
+
+    .search-icon {
+        width: 18px;
+        height: 18px;
+    }
 }
