@@ -3,7 +3,7 @@ body {
     margin: 0;
     padding: 0;
     background-color: black; /* Fundo totalmente preto para todo o corpo */
-    color: #E0FECA; /* Cor do texto geral em verde bem claro */
+    color: #FFFFFF; /* Cor do texto geral em branco puro */
 }
 
 header {
@@ -39,5 +39,5 @@ footer {
     bottom: 0; /* Alinha o rodapé à parte inferior */
     width: 100%; /* Garante que o rodapé ocupe toda a largura */
     box-sizing: border-box; /* Inclui padding na largura total */
-    color: #E0FECA; /* Cor do texto do rodapé em verde bem claro */
+    color: #FFFFFF; /* Cor do texto do rodapé em branco puro */
 }
