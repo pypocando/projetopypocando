@@ -9,22 +9,23 @@ body {
     overflow-x: hidden; /* Evita rolagem horizontal indesejada */
 }
 
-/* Botão de Menu (3 traços) */
+/* Botão de Menu (3 traços) - Padrão para desktop (dentro da sidebar fina) */
 .menu-toggle-button {
-    position: fixed; /* Fixo na tela */
-    top: 15px;
-    left: 15px;
     color: #FFFFFF;
     cursor: pointer;
-    z-index: 1050; /* Acima de tudo para ser clicável */
-    background-color: transparent; /* Fundo transparente */
-    border: none; /* Sem borda */
+    z-index: 1050;
+    background-color: transparent;
+    border: none;
     padding: 0;
-    width: 24px; /* Tamanho do ícone */
-    height: 24px; /* Tamanho do ícone */
+    width: 24px;
+    height: 24px;
     display: flex; /* Para centralizar o SVG */
     align-items: center;
     justify-content: center;
+    /* Por padrão, em desktop, este botão estará na sidebar fina */
+    position: absolute; /* Posição absoluta dentro do header para alinhar */
+    top: 15px;
+    left: 15px;
 }
 
 .menu-toggle-button svg {
@@ -148,6 +149,7 @@ header {
     box-sizing: border-box;
     flex-shrink: 0;
     border-bottom: 1px solid #333333;
+    position: relative; /* Necessário para posicionar o menu-toggle-button absolutamente em desktop */
 }
 
 .logo-site {
@@ -210,49 +212,56 @@ header {
 /* Media Queries para Responsividade */
 @media (max-width: 768px) {
     header {
-        flex-direction: row; /* Alinha logo e barra na mesma linha */
-        align-items: center; /* Alinha verticalmente */
-        justify-content: space-between; /* Espaço entre logo e barra */
+        flex-direction: column; /* Coloca os elementos em coluna */
+        align-items: center; /* Centraliza horizontalmente */
         padding: 10px 15px;
-    }
-
-    .logo-site {
-        max-width: 120px; /* Reduz um pouco mais o logo em mobile */
-        margin: 0 auto 0 0; /* Centraliza horizontalmente e alinha à esquerda */
-    }
-
-    .search-container {
-        width: calc(100% - 150px); /* Ajusta a largura considerando o logo menor */
-        margin-top: 0; /* Remove a margem superior */
-        max-width: none;
-        margin-left: 15px; /* Espaço entre o logo e a barra */
+        position: relative; /* Garante que o header seja o contêiner de posicionamento */
     }
 
     .menu-toggle-button {
-        position: fixed;
-        top: 15px;
-        left: auto; /* Remove o alinhamento à esquerda */
-        right: 15px; /* Alinha à direita */
-        display: block;
+        position: absolute; /* Posição absoluta dentro do header */
+        top: 15px; /* Alinha no topo do header */
+        left: 15px; /* Alinha à esquerda */
+        right: auto; /* Remove o right: 15px do desktop */
+        display: flex; /* Garante que esteja visível e use flex */
+        z-index: 10; /* Garante que fique por cima de outros elementos se houver sobreposição */
     }
 
+    .logo-site {
+        max-width: 120px; /* Reduz o logo */
+        margin: 15px auto 10px auto; /* Centraliza o logo e adiciona margens superior/inferior */
+    }
+
+    .search-container {
+        width: 100%; /* Ocupa a largura total */
+        max-width: 400px; /* Mantém um max-width para telas maiores que mobile mas menores que desktop */
+        margin-top: 0;
+        margin-left: 0;
+    }
+
+    /* Em telas pequenas, a sidebar está sempre "fechada" (totalmente fora da tela) e é acionada pelo botão de menu */
     .sidebar {
-        left: -250px;
-        width: 250px;
-        transition: left 0.3s ease, width 0.3s ease;
+        left: -250px; /* Esconde a sidebar totalmente fora da tela */
+        width: 250px; /* Largura total quando visível */
         padding-top: 55px; /* Ajusta o padding top para não sobrepor o cabeçalho */
     }
 
     .sidebar.open {
-        left: 0;
+        left: 0; /* Traz a sidebar para dentro da tela */
     }
 
+    /* O conteúdo principal ocupa toda a largura, e o desfoque se aplica a ele */
     .content-wrapper {
         margin-left: 0;
     }
 
     body.menu-open .content-wrapper {
-        margin-left: 0;
+        margin-left: 0; /* Não move o conteúdo, apenas desfoca */
+    }
+
+    /* Ocultar o botão de fechar da sidebar quando a sidebar está recolhida (em mobile ele não estaria visível de qualquer forma) */
+    .sidebar-close-button {
+        display: block; /* O botão de fechar é sempre visível quando a sidebar está aberta em mobile */
     }
 }
 
