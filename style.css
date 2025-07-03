@@ -22,10 +22,11 @@ body {
     display: flex; /* Para centralizar o SVG */
     align-items: center;
     justify-content: center;
-    /* Por padrão, em desktop, este botão estará na sidebar fina */
-    position: absolute; /* Posição absoluta dentro do header para alinhar */
+    /* Posição absoluta dentro do header para alinhar em desktop */
+    position: absolute;
     top: 15px;
-    left: 15px;
+    left: 15px; /* Volta para a esquerda */
+    display: flex; /* Garante que esteja visível por padrão em desktop */
 }
 
 .menu-toggle-button svg {
@@ -228,7 +229,7 @@ header {
     }
 
     .logo-site {
-        max-width: 120px; /* Reduz o logo */
+        max-width: 150px; /* AUMENTADO: Logo um pouco maior em mobile */
         margin: 15px auto 10px auto; /* Centraliza o logo e adiciona margens superior/inferior */
     }
 
@@ -271,7 +272,7 @@ header {
     }
 
     .logo-site {
-        max-width: 100px; /* Logo ainda menor em celulares menores */
+        max-width: 130px; /* AUMENTADO: Logo ainda maior em celulares muito pequenos */
     }
 
     .search-input {
