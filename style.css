@@ -4,14 +4,142 @@ body {
     padding: 0;
     background-color: black; /* Fundo principal preto */
     color: #FFFFFF; /* Cor do texto geral em branco */
-    display: flex; /* Para organizar header, main-content-wrapper e footer em coluna */
-    flex-direction: column;
+    display: flex; /* Permite que o menu-toggle-button, sidebar e content-wrapper se organizem */
     min-height: 100vh; /* Garante que o body ocupe a altura total da tela */
+    overflow-x: hidden; /* Evita rolagem horizontal indesejada */
 }
 
-/* Estilo do Cabeçalho */
+/* Botão de Menu (3 traços) */
+.menu-toggle-button {
+    position: fixed; /* Fixo na tela */
+    top: 15px;
+    left: 15px;
+    color: #FFFFFF;
+    cursor: pointer;
+    z-index: 1050; /* Acima de tudo para ser clicável */
+    background-color: transparent; /* Fundo transparente */
+    border: none; /* Sem borda */
+    padding: 0;
+    width: 24px; /* Tamanho do ícone */
+    height: 24px; /* Tamanho do ícone */
+    display: flex; /* Para centralizar o SVG */
+    align-items: center;
+    justify-content: center;
+}
+
+.menu-toggle-button svg {
+    width: 24px;
+    height: 24px;
+}
+
+/* Barra Lateral (Sidebar) */
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 60px; /* Largura inicial fina */
+    background-color: #141414; /* Cinza escuro da sidebar */
+    color: #FFFFFF;
+    box-sizing: border-box;
+    z-index: 1000;
+    overflow-y: auto;
+    height: 100%; /* Ocupa a altura total da tela */
+    transition: width 0.3s ease, left 0.3s ease; /* Animação para largura e posição */
+    padding-top: 15px; /* Espaço no topo, alinhado com o botão de menu */
+    border-right: 1px solid #333333; /* Linha de divisão */
+    display: flex; /* Permite alinhar o header da sidebar e a nav em coluna */
+    flex-direction: column;
+}
+
+.sidebar.open {
+    width: 250px; /* Largura ao expandir */
+}
+
+/* Cabeçalho da Sidebar (contém o botão de fechar) */
+.sidebar-header {
+    display: flex;
+    justify-content: flex-end; /* Alinha o botão de fechar à direita */
+    padding: 0 15px 15px 0; /* Padding para o botão de fechar */
+    height: 24px; /* Para alinhar com o menu-toggle-button */
+}
+
+.sidebar-close-button {
+    background-color: transparent;
+    color: #FFFFFF;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    width: 24px;
+    height: 24px;
+    display: flex; /* Para centralizar o SVG */
+    align-items: center;
+    justify-content: center;
+}
+
+.sidebar-close-button svg {
+    width: 24px;
+    height: 24px;
+}
+
+.sidebar nav {
+    flex-grow: 1; /* Faz a navegação ocupar o espaço restante */
+}
+
+.sidebar nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar nav ul li a {
+    display: flex; /* Usa flex para alinhar ícone e texto */
+    align-items: center;
+    color: #FFFFFF;
+    text-decoration: none;
+    padding: 10px 20px; /* Padding para os itens de menu */
+    transition: background-color 0.3s ease;
+    font-size: 0.95em;
+    white-space: nowrap; /* Impede quebra de linha do texto */
+    overflow: hidden; /* Oculta o que transborda (texto) */
+}
+
+.sidebar nav ul li a:hover {
+    background-color: #2A2A2A; /* Fundo do item em hover */
+}
+
+/* Esconder o texto dos links na sidebar fina */
+.sidebar:not(.open) nav ul li a span {
+    opacity: 0; /* Opacidade 0 para esconder o texto */
+    transition: opacity 0.1s ease; /* Transição rápida para sumir */
+    width: 0; /* Oculta o espaço do texto */
+}
+
+.sidebar:not(.open) nav ul li a {
+    justify-content: center; /* Centraliza o ícone quando o texto está oculto */
+    padding: 15px 0; /* Ajusta padding para ícone */
+}
+
+/* Conteúdo Principal (que terá o desfoque) */
+.content-wrapper {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    margin-left: 60px; /* Começa à direita da sidebar fina */
+    transition: margin-left 0.3s ease, filter 0.3s ease; /* Animação para a margem e o desfoque */
+    background-color: black; /* Fundo para o conteúdo */
+}
+
+/* Efeito de desfoque e ajuste de margem quando a sidebar está aberta */
+body.menu-open .content-wrapper {
+    filter: blur(5px); /* Desfoque */
+    pointer-events: none; /* Impede interação com o conteúdo embaçado */
+    user-select: none; /* Impede seleção de texto */
+    margin-left: 250px; /* Move o conteúdo para a direita da sidebar expandida */
+}
+
+/* Cabeçalho */
 header {
-    background-color: black; /* Fundo preto para o cabeçalho, para mesclar com o fundo do body */
+    background-color: black; /* Fundo preto para mesclar com o body */
     padding: 15px 20px;
     display: flex;
     align-items: center;
@@ -19,7 +147,7 @@ header {
     width: 100%;
     box-sizing: border-box;
     flex-shrink: 0;
-    border-bottom: 1px solid #333333; /* Linha de divisão sutil */
+    border-bottom: 1px solid #333333;
 }
 
 .logo-site {
@@ -29,11 +157,10 @@ header {
     margin: 0;
 }
 
-/* Estilo da Barra de Pesquisa */
 .search-container {
     display: flex;
     align-items: center;
-    background-color: #2A2A2A; /* Cinza do background da barra de pesquisa (mais claro que sidebar) */
+    background-color: #2A2A2A;
     border-radius: 20px;
     padding: 5px 10px;
     flex-grow: 1;
@@ -53,7 +180,7 @@ header {
 }
 
 .search-input::placeholder {
-    color: #BBBBBB; /* Cinza claro para o placeholder */
+    color: #BBBBBB;
 }
 
 .search-button {
@@ -72,73 +199,40 @@ header {
     height: 20px;
 }
 
-/* Novo Wrapper para Sidebar e Conteúdo Principal */
-.main-content-wrapper {
-    display: flex;
-    flex-grow: 1;
-    background-color: black; /* Fundo preto para a área de conteúdo */
-}
-
-/* Estilo da Barra Lateral (Sidebar) */
-.sidebar {
-    width: 250px; /* Largura da barra lateral */
-    background-color: #141414; /* Cinza escuro para a barra lateral, como na referência */
-    padding: 20px 0;
-    box-sizing: border-box;
-    flex-shrink: 0;
-    overflow-y: auto;
-    border-right: 1px solid #333333; /* Linha de divisão sutil */
-}
-
-.sidebar nav ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-.sidebar nav ul li a {
-    display: block;
-    color: #FFFFFF;
-    text-decoration: none;
-    padding: 10px 20px;
-    transition: background-color 0.3s ease, color 0.3s ease;
-    font-size: 0.95em;
-}
-
-.sidebar nav ul li a:hover {
-    background-color: #2A2A2A; /* Fundo do item em hover (mesma cor da barra de pesquisa) */
-    color: #FFFFFF; /* Texto branco em hover */
-}
-/* Estilo para um item de menu ativo na sidebar (opcional, para quando tivermos JS para isso) */
-/* .sidebar nav ul li a.active {
-    background-color: #E20016;
-    color: #FFFFFF;
-} */
-
-
-/* Estilo da Área Principal de Conteúdo */
 .main-area {
     flex-grow: 1;
     padding: 20px;
     text-align: center;
-    background-color: black; /* Fundo do main para mesclar com o body */
+    background-color: black;
     overflow-y: auto;
-}
-
-/* Estilo do Rodapé */
-footer {
-    background-color: black; /* Fundo preto para o rodapé, para mesclar com o body */
-    padding: 10px;
-    text-align: center;
-    width: 100%;
-    box-sizing: border-box;
-    color: #FFFFFF;
-    flex-shrink: 0;
-    border-top: 1px solid #333333; /* Linha de divisão sutil */
 }
 
 /* Media Queries para Responsividade */
 @media (max-width: 768px) {
+    /* Em telas pequenas, a sidebar está sempre "fechada" (totalmente fora da tela) e é acionada pelo botão de menu */
+    .sidebar {
+        left: -250px; /* Esconde a sidebar totalmente fora da tela */
+        width: 250px; /* Largura total quando visível */
+    }
+
+    .sidebar.open {
+        left: 0; /* Traz a sidebar para dentro da tela */
+    }
+
+    /* O botão de menu de 3 traços aparece em mobile */
+    .menu-toggle-button {
+        display: block;
+    }
+
+    /* O conteúdo principal ocupa toda a largura, e o desfoque se aplica a ele */
+    .content-wrapper {
+        margin-left: 0;
+    }
+
+    body.menu-open .content-wrapper {
+        margin-left: 0; /* Não move o conteúdo, apenas desfoca */
+    }
+
     header {
         flex-direction: column;
         align-items: flex-start;
@@ -156,28 +250,9 @@ footer {
         max-width: 150px;
     }
 
-    .main-content-wrapper {
-        flex-direction: column;
-    }
-
-    .sidebar {
-        width: 100%;
-        height: auto;
-        padding: 10px 0;
-        border-right: none;
-        border-bottom: 1px solid #333333;
-    }
-
-    .sidebar nav ul {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 5px;
-    }
-
-    .sidebar nav ul li a {
-        padding: 8px 15px;
-        font-size: 0.9em;
+    /* Ocultar o botão de fechar da sidebar quando a sidebar está recolhida (em mobile ele não estaria visível de qualquer forma) */
+    .sidebar-close-button {
+        display: block; /* O botão de fechar é sempre visível quando a sidebar está aberta em mobile */
     }
 }
 
@@ -189,10 +264,5 @@ footer {
     .search-icon {
         width: 18px;
         height: 18px;
-    }
-
-    .sidebar nav ul li a {
-        padding: 6px 10px;
-        font-size: 0.85em;
     }
 }
