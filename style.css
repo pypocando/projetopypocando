@@ -144,13 +144,12 @@ header {
     flex-wrap: wrap; /* Permite que a barra de pesquisa quebre linha no mobile */
 }
 
-/* Novo wrapper para ícone e logo no cabeçalho */
+/* New wrapper for icon and logo in the header */
 .header-top-row {
     display: flex;
     align-items: center;
-    width: 100%; /* Ocupa a largura total no header */
+    width: auto; /* Will be set by flexbox */
     justify-content: flex-start;
-    margin-bottom: 10px; /* Espaço entre a linha superior e a pesquisa no mobile */
 }
 
 .logo-site {
@@ -209,50 +208,56 @@ header {
     overflow-y: auto;
 }
 
-/* Media Queries para Responsividade */
+/* Media Queries for Responsiveness */
 
-/* Desktop (min-width: 769px) - MANTENDO ISSO CORRETO! */
+/* Desktop (min-width: 769px) - Correções para o ícone */
 @media (min-width: 769px) {
     header {
         flex-direction: row; /* Elementos em linha no desktop */
-        justify-content: space-between; /* Espaço entre o logo/ícone e a pesquisa */
-        padding-left: 70px; /* Espaço para o ícone do menu que estará 'escondido' na lateral */
-        align-items: center; /* Alinha verticalmente o conteúdo do header */
+        justify-content: space-between; /* Espaço entre o logo e a pesquisa */
+        /* Importante: O padding-left do header desloca todo o seu conteúdo. */
+        /* Ajustamos o 'left' do menu-toggle-button para compensar. */
+        padding-left: 70px; /* Garante espaço para o ícone na área da sidebar */
     }
 
     .header-top-row {
-        /* No desktop, este wrapper contém o logo e o ícone, mas o ícone será posicionado absolutamente */
+        /* No desktop, este wrapper contém o logo e o ícone. */
+        /* O ícone será posicionado absolutamente relativo ao header. */
         width: auto;
-        justify-content: flex-start; /* Garante que o logo esteja alinhado à esquerda dentro deste wrapper */
-        order: 1; /* Mantém como primeiro elemento no header */
+        justify-content: flex-start;
+        flex-grow: 1;
+        order: 1;
     }
 
     .menu-toggle-button {
-        position: absolute; /* Puxa o ícone para fora do fluxo normal, na área da sidebar */
+        position: absolute; /* Puxa o ícone para fora do fluxo normal do header */
         top: 15px;
-        left: 15px; /* Alinha com a sidebar */
+        /* left: -55px: Posiciona o ícone 55px à esquerda da borda interna do padding-left do header.
+           Como o header tem padding-left: 70px, o ícone ficará 70px - 55px = 15px da borda esquerda do content-wrapper,
+           colocando-o dentro dos 60px da sidebar. */
+        left: -55px;
         display: flex; /* Garante que seja visível no desktop */
-        margin-right: 10px; /* Adiciona um pouco de espaço à direita */
+        margin-right: 0; /* Remove qualquer margem para posicionamento absoluto */
     }
 
     .logo-site {
         max-width: 180px; /* Tamanho padrão do desktop */
-        margin-left: 0; /* Nenhuma margem extra */
+        margin-left: 0; /* Remove margens extras */
     }
 
     .search-container {
         flex-grow: 0; /* Não cresce, mantém seu max-width */
         max-width: 400px;
         margin-left: 20px; /* Espaçamento padrão */
-        order: 2; /* Mantém como segundo elemento no header */
+        order: 2;
     }
 }
 
-/* Mobile/Tablet (max-width: 768px) - CORRIGINDO ISSO! */
+/* Mobile/Tablet (max-width: 768px) - Correções para alinhamento e centralização */
 @media (max-width: 768px) {
     header {
         flex-direction: column; /* Empilha os elementos do cabeçalho */
-        align-items: flex-start; /* Alinha todo o conteúdo à esquerda */
+        align-items: center; /* **Centraliza horizontalmente os blocos dentro do header** */
         padding: 10px 15px; /* Ajusta o preenchimento para mobile */
         justify-content: flex-start;
     }
@@ -262,28 +267,29 @@ header {
         align-items: center;
         width: 100%; /* Ocupa a largura total */
         margin-bottom: 10px; /* Espaço entre esta linha e a barra de pesquisa */
-        justify-content: flex-start; /* Alinha ícone e logo ao início */
+        justify-content: center; /* **Centraliza o ícone e o logo dentro da sua linha** */
     }
 
     .menu-toggle-button {
         position: static; /* Permite que ele flua normalmente dentro de header-top-row */
-        display: flex; /* Garante que seja visível */
+        display: flex; /* Garante que seja visível no mobile */
         margin-right: 10px; /* Espaço entre o ícone e o logo */
     }
 
     .logo-site {
         max-width: 130px; /* Logo menor para mobile */
-        margin-left: 0; /* Nenhuma margem extra */
+        margin-left: 0; /* Remove margens extras */
     }
 
     .search-container {
         width: 100%; /* Barra de pesquisa de largura total */
         max-width: none; /* Substitui o max-width do desktop */
         margin-top: 0; /* Redefine a margem superior */
-        margin-left: 0; /* Redefine a margem esquerda */
+        margin-left: auto; /* **Centraliza a barra de pesquisa horizontalmente** */
+        margin-right: auto; /* **Centraliza a barra de pesquisa horizontalmente** */
     }
 
-    /* Sidebar e content-wrapper para mobile */
+    /* Sidebar e content-wrapper para mobile (geralmente inalterados) */
     .sidebar {
         left: -250px; /* Inicialmente escondida */
         width: 250px;
