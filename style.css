@@ -4,31 +4,27 @@ body {
     padding: 0;
     background-color: black;
     color: #FFFFFF;
-    display: flex;
+    display: flex; /* Permite que o menu-toggle-button, sidebar e content-wrapper se organizem */
     min-height: 100vh;
     overflow-x: hidden;
 }
 
-/* Botão de Menu (3 traços) - Comportamento PADRÃO para Desktop */
+/* Botão de Menu (3 traços) - Comportamento PADRÃO para Desktop (no canto superior esquerdo da tela) */
 .menu-toggle-button {
+    position: fixed; /* Fixo na tela */
+    top: 15px;
+    left: 15px;
     color: #FFFFFF;
     cursor: pointer;
-    z-index: 1050;
+    z-index: 1050; /* Acima de tudo para ser clicável */
     background-color: transparent;
     border: none;
     padding: 0;
     width: 24px;
     height: 24px;
-    display: flex; /* Garante que é um flex container para centralizar SVG */
+    display: flex; /* Para centralizar o SVG */
     align-items: center;
     justify-content: center;
-    
-    /* Padrão para Desktop: Escondido no header, ele será ativado via JS */
-    /* ou seja, ele é o botão que abre a sidebar quando ela está fechada */
-    position: absolute; /* Posição absoluta dentro do header */
-    top: 15px; /* Alinhado ao topo */
-    left: 15px; /* Alinhado à esquerda da sidebar (quando visível) */
-    display: flex; /* Visível por padrão em desktop, pois é o botão que sempre existe */
 }
 
 .menu-toggle-button svg {
@@ -128,7 +124,7 @@ body {
     flex-grow: 1;
     display: flex;
     flex-direction: column;
-    margin-left: 60px; /* Começa à direita da sidebar fina */
+    margin-left: 60px; /* Começa à direita da sidebar fina (onde o menu toggle button fica em desktop) */
     transition: margin-left 0.3s ease, filter 0.3s ease;
     background-color: black;
 }
@@ -152,7 +148,7 @@ header {
     box-sizing: border-box;
     flex-shrink: 0;
     border-bottom: 1px solid #333333;
-    position: relative; /* Essencial para o posicionamento absoluto do menu-toggle-button */
+    position: relative; /* Essencial para elementos posicionados, mas no desktop não terá muita utilidade aqui */
 }
 
 .logo-site {
@@ -216,12 +212,15 @@ header {
 
 /* Desktop (min-width: 769px) - MANTER INTACTO */
 @media (min-width: 769px) {
-    /* O menu-toggle-button já está posicionado corretamente no CSS global para desktop. */
-    /* Ele está dentro do header, mas com position: absolute e alinhado à esquerda. */
-    
-    /* Garantir que o logo-site comece após a largura do sidebar quando fechado. */
+    /* O menu-toggle-button já é position: fixed no CSS global, então ele já está no canto superior esquerdo. */
+    /* Ocultamos ele DENTRO do header para desktop, pois o global já funciona como o botão da sidebar. */
+    header .menu-toggle-button {
+        display: none; /* Esconde o botão se ele estiver dentro do header no desktop, pois o global já existe */
+    }
+
+    /* O logo-site deve estar alinhado com o conteúdo, após a barra lateral. */
     .logo-site {
-        margin-left: 60px; /* Afasta o logo da quina onde estaria o botão da sidebar */
+        margin-left: 0; /* Remove qualquer margem que possa ter vindo de outras regras */
     }
 
     /* O search-container pode usar o margin-left padrão. */
@@ -232,28 +231,38 @@ header {
 
 /* Mobile/Tablet (max-width: 768px) - AJUSTAR APENAS AQUI */
 @media (max-width: 768px) {
+    /* Ocultar o botão global do menu para que ele não apareça duas vezes no mobile */
+    body > .menu-toggle-button {
+        display: none;
+    }
+
     header {
-        flex-direction: row; /* Volta a ser linha para ícone e logo */
-        align-items: center; /* Centraliza verticalmente os itens da linha */
-        justify-content: flex-start; /* Alinha tudo à esquerda na linha */
+        flex-direction: column; /* Coloca os elementos em coluna */
+        align-items: center; /* Centraliza horizontalmente */
         padding: 10px 15px;
         flex-wrap: wrap; /* Permite quebrar linha para a barra de pesquisa */
     }
 
-    .menu-toggle-button {
-        position: static; /* Remove o absolute para que ele participe do flexbox */
-        display: flex; /* Visível em mobile */
-        margin-right: 10px; /* Espaço entre o ícone e o logo */
-        top: auto; /* Remove top fixo */
-        left: auto; /* Remove left fixo */
-        order: 1; /* Garante que ele seja o primeiro elemento na linha */
+    /* Agora, para o botão de menu e logo lado a lado e centralizados */
+    header::before { /* Usamos um pseudo-elemento para criar o ícone de 3 traços */
+        content: ''; /* Conteúdo vazio para o pseudo-elemento */
+        display: block; /* Essencial para aplicar largura/altura e posicionamento */
+        width: 24px; /* Largura do ícone */
+        height: 24px; /* Altura do ícone */
+        background: url('data:image/svg+xml;utf8,<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>') no-repeat center center;
+        background-size: contain;
+        position: absolute; /* Posição absoluta em relação ao header */
+        top: 10px; /* Ajusta a posição vertical */
+        left: 15px; /* Alinha à esquerda */
+        cursor: pointer;
+        z-index: 10; /* Garante que esteja acima do logo */
     }
-
+    
     .logo-site {
         max-width: 130px; /* Tamanho do logo no celular */
         height: auto;
         margin: 0; /* Remove margens extras */
-        order: 2; /* Garante que ele seja o segundo elemento na linha */
+        margin-left: 35px; /* Espaço para o ícone do menu que será criado */
     }
 
     .search-container {
@@ -261,7 +270,11 @@ header {
         max-width: none; /* Remove max-width para ocupar todo espaço disponível */
         margin-top: 10px; /* Espaço entre a linha de cima e a barra de pesquisa */
         margin-left: 0;
-        order: 3; /* Garante que ele seja o terceiro elemento na linha (nova linha) */
+    }
+
+    /* Esconde o menu-toggle-button original dentro do header no mobile */
+    header .menu-toggle-button {
+        display: none; /* Garante que o botão original HTML dentro do header não apareça no mobile */
     }
 
     /* Sidebar e content-wrapper - manter como estava para mobile */
