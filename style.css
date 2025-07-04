@@ -48,30 +48,15 @@ header {
     margin-left: 15px;
 }
 
-/* Menu Toggle Button (Hambúrguer) - Visível no mobile, oculto no desktop */
+/* Menu Toggle Button (Hambúrguer) - Removido do HTML e CSS para corresponder à imagem desejada */
 .menu-toggle-button {
-    color: #FFFFFF;
-    cursor: pointer;
-    z-index: 1050;
-    background-color: transparent;
-    border: none;
-    padding: 0;
-    width: 24px;
-    height: 24px;
-    display: flex; /* Visível no mobile */
-    align-items: center;
-    justify-content: center;
-}
-
-.menu-toggle-button svg {
-    width: 24px;
-    height: 24px;
-    fill: currentColor;
+    display: none; /* Garante que está oculto */
 }
 
 /* Main Navigation (Mobile-First) */
 .main-navigation {
-    display: none; /* Oculto por padrão no mobile, será ativado por JS */
+    /* Ajustes para garantir que a navegação se alinhe corretamente sem o botão de hambúrguer/sidebar */
+    display: flex; /* Visível no mobile (se não houver um botão para ativá-lo, estará sempre visível) */
     width: 100%;
     margin-bottom: 15px;
     flex-direction: column;
@@ -79,7 +64,7 @@ header {
 }
 
 .main-navigation.active {
-    display: flex; /* Visível quando ativado por JS no mobile */
+    display: flex; /* Mantido caso haja JS externo que o ative, mas sem o menu-toggle-button principal, não deve ser ativado por padrão */
 }
 
 .main-navigation ul {
@@ -255,6 +240,13 @@ footer {
     width: 180px; /* Largura do pôster */
     margin-right: 15px; /* Espaçamento entre os pôsteres */
     text-align: center;
+    cursor: pointer; /* Adiciona ponteiro para indicar que é clicável */
+    transition: transform 0.2s ease, box-shadow 0.2s ease; /* Transição suave */
+}
+
+.movie-card:hover {
+    transform: translateY(-5px); /* Efeito de elevação ao passar o mouse */
+    box-shadow: 0 8px 16px rgba(224, 48, 30, 0.4); /* Sombra mais destacada */
 }
 
 .movie-card img {
@@ -322,6 +314,112 @@ footer {
     justify-content: center; /* Centraliza a grade */
 }
 
+/* MOVIE MODAL STYLES */
+.movie-modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1000; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0,0,0,0.7); /* Black w/ opacity */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    padding: 20px;
+}
+
+.movie-modal.active {
+    display: flex; /* Show when active */
+}
+
+.modal-content {
+    background-color: #1a1a1a;
+    margin: auto;
+    padding: 20px;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 500px; /* Increased max-width for better display of content */
+    box-shadow: 0 5px 15px rgba(0,0,0,0.6);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    color: #fff;
+}
+
+.close-button {
+    color: #bbb;
+    font-size: 28px;
+    font-weight: bold;
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    cursor: pointer;
+}
+
+.close-button:hover,
+.close-button:focus {
+    color: #fff;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.modal-movie-details {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px; /* Spacing between elements */
+}
+
+.modal-movie-details img {
+    width: 200px; /* Adjust size as needed */
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+}
+
+.modal-movie-details h3 {
+    color: #E0301E; /* Highlight color for title */
+    font-size: 1.8em;
+    margin-top: 10px;
+}
+
+.modal-movie-details p {
+    font-size: 1.1em;
+    margin: 0;
+}
+
+.modal-movie-details p span {
+    font-weight: bold;
+}
+
+.watch-button {
+    display: inline-block;
+    background-color: #E0301E;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    margin-top: 20px;
+    font-size: 1.1em;
+    transition: background-color 0.3s ease;
+}
+
+.watch-button:hover {
+    background-color: #c72b1a;
+}
+
+.security-note {
+    font-size: 0.8em;
+    color: #aaa;
+    margin-top: 20px;
+    text-align: justify;
+    line-height: 1.4;
+}
+
 /* Desktop Layout (min-width: 769px) */
 @media (min-width: 769px) {
     header {
@@ -336,9 +434,7 @@ footer {
         margin-bottom: 0;
     }
 
-    .menu-toggle-button {
-        display: none; /* Oculta o botão de hambúrguer no desktop */
-    }
+    /* .menu-toggle-button é display:none por padrão no mobile agora, então não precisa de alteração aqui */
 
     .logo-site {
         margin-left: 0;
