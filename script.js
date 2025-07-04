@@ -1,25 +1,71 @@
 document.addEventListener('DOMContentLoaded', function() {
-    const menuToggleButton = document.getElementById('menuToggleButton');
+    // const menuToggleButton = document.getElementById('menuToggleButton'); // Removido, não é mais necessário
     const mainNavigation = document.getElementById('mainNavigation'); // Alterado para mainNavigation
 
     // Lógica para o botão de menu hambúrguer (agora para a navegação superior)
-    if (menuToggleButton && mainNavigation) {
-        menuToggleButton.addEventListener('click', function() {
-            mainNavigation.classList.toggle('active');
-        });
+    // Este bloco foi mantido por causa de mainNavigation, mas o botão real está desativado no HTML e CSS.
+    // Se o user quiser um menu de hambúrguer novamente, este bloco pode ser reativado.
+    // if (menuToggleButton && mainNavigation) {
+    //     menuToggleButton.addEventListener('click', function() {
+    //         mainNavigation.classList.toggle('active');
+    //     });
 
-        // Fechar a navegação ao redimensionar para desktop
-        window.addEventListener('resize', function() {
-            if (window.innerWidth >= 769) {
-                mainNavigation.classList.remove('active');
-            }
-        });
+    //     // Fechar a navegação ao redimensionar para desktop
+    //     window.addEventListener('resize', function() {
+    //         if (window.innerWidth >= 769) {
+    //             mainNavigation.classList.remove('active');
+    //         }
+    //     });
+    // }
+
+    // Obter elementos do modal
+    const movieDetailsModal = document.getElementById('movieDetailsModal');
+    const closeButton = document.querySelector('.close-button');
+    const modalMovieCover = document.getElementById('modalMovieCover');
+    const modalMovieTitle = document.getElementById('modalMovieTitle');
+    const modalMovieCategory = document.getElementById('modalMovieCategory');
+    const modalMovieReleaseDate = document.getElementById('modalMovieReleaseDate');
+    const modalWatchButton = document.getElementById('modalWatchButton');
+
+    // Função para abrir o modal
+    function openModal(movie) {
+        modalMovieCover.src = movie.coverUrl;
+        modalMovieCover.alt = `Capa do Filme ${movie.title}`;
+        modalMovieTitle.textContent = movie.title;
+        modalMovieCategory.textContent = movie.category;
+        modalMovieReleaseDate.textContent = movie.releaseDate;
+
+        // Oculta o botão "Assistir Agora" se não houver watchUrl
+        if (movie.watchUrl) {
+            modalWatchButton.href = movie.watchUrl;
+            modalWatchButton.style.display = 'inline-block';
+        } else {
+            modalWatchButton.style.display = 'none';
+        }
+        
+        movieDetailsModal.classList.add('active'); // Mostra o modal
     }
 
-    // Função auxiliar para criar um movie-card
+    // Função para fechar o modal
+    function closeModal() {
+        movieDetailsModal.classList.remove('active'); // Oculta o modal
+    }
+
+    // Event listeners para fechar o modal
+    closeButton.addEventListener('click', closeModal);
+    window.addEventListener('click', function(event) {
+        if (event.target === movieDetailsModal) {
+            closeModal();
+        }
+    });
+
+    // Função auxiliar para criar um movie-card (modificada para ser clicável)
     function createMovieCard(movie) {
         const movieCard = document.createElement('div');
         movieCard.classList.add('movie-card');
+        
+        // Adiciona um evento de clique ao card
+        movieCard.addEventListener('click', () => openModal(movie));
 
         const img = document.createElement('img');
         img.src = movie.coverUrl;
