@@ -33,11 +33,11 @@
     },
     {
         "id": "movie5",
-        "title": "Interstellar",
-        "coverUrl": "https://image.tmdb.org/t/p/w185/gC2o61z3d3i2T4t4l2Fj7j0d1d1.jpg",
+        "title": "Van Helsing - O Caçador de Monstros",
+        "coverUrl": "https://upload.wikimedia.org/wikipedia/pt/d/de/VanHelsing.jpg",
         "category": "ficcao-cientifica",
         "releaseDate": "2014-11-07",
-        "sections": ["filme"]
+        "sections": ["filme", "lancamento"]
     },
     {
         "id": "movie6",
