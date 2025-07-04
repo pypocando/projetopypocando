@@ -9,473 +9,457 @@ body {
     font-family: Arial, sans-serif;
     background: #000;
     color: #fff;
-    min-height: 100vh;
-    overflow-x: hidden; /* Mantém para evitar rolagem horizontal indesejada */
+    min-height: 100vh; /* Garante que o body ocupe a altura total da viewport */
+    display: flex; /* Adicionado para o layout flex da sidebar e content-wrapper */
 }
 
-.content-wrapper {
-    width: 100%;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-}
-
-/* Header styles (Mobile-First) */
-header {
-    display: flex;
-    flex-direction: column; /* Empilha a linha superior, navegação e pesquisa */
-    align-items: flex-start;
-    padding: 15px 10px;
-    width: 100%;
-    box-sizing: border-box;
-    background-color: black;
-    border-bottom: 1px solid #333;
-}
-
-.header-top-row {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    align-items: center;
-    width: 100%;
-    margin-bottom: 15px; /* Espaço antes da barra de pesquisa */
-}
-
-.logo-site {
-    max-height: 40px;
-    width: auto;
-    flex-shrink: 0;
-    margin-left: 15px;
-}
-
-/* Menu Toggle Button (Hambúrguer) - Visível no mobile, oculto no desktop */
+/* Base style for menu toggle button - it will be inside header */
 .menu-toggle-button {
-    color: #FFFFFF;
+    color: #FFFFFF; /* Cor do ícone */
     cursor: pointer;
-    z-index: 1050;
+    z-index: 1050; /* Z-index alto para clickability */
     background-color: transparent;
     border: none;
     padding: 0;
-    width: 24px;
+    width: 24px; /* Tamanho base do ícone */
     height: 24px;
-    display: flex; /* Visível no mobile */
+    display: flex;
     align-items: center;
     justify-content: center;
+    margin-right: 15px; /* Espaçamento entre o botão e o logo */
 }
 
 .menu-toggle-button svg {
     width: 24px;
     height: 24px;
-    fill: currentColor;
+    fill: currentColor; /* Para que o SVG herde a cor do pai */
 }
 
-/* Main Navigation (Mobile-First) */
-.main-navigation {
-    display: none; /* Oculto por padrão no mobile, será ativado por JS */
-    width: 100%;
-    margin-bottom: 15px;
-    flex-direction: column;
-    align-items: flex-start;
+/* Sidebar styles (Mobile-First) */
+.sidebar {
+    position: fixed; /* Posiciona a barra lateral em relação à viewport */
+    top: 0;
+    left: -250px; /* Esconde a sidebar fora da tela */
+    width: 250px;
+    height: 100%;
+    background-color: #1a1a1a;
+    padding-top: 60px; /* Espaço para o cabeçalho superior */
+    transition: left 0.3s ease; /* Animação suave */
+    z-index: 1000; /* Garante que fique acima do conteúdo principal */
+    box-shadow: 2px 0 5px rgba(0,0,0,0.5);
 }
 
-.main-navigation.active {
-    display: flex; /* Visível quando ativado por JS no mobile */
+.sidebar.active {
+    left: 0; /* Mostra a sidebar */
 }
 
-.main-navigation ul {
+.sidebar nav ul {
     list-style: none;
-    width: 100%;
     padding: 0;
-    margin-bottom: 0;
-    display: flex;
-    justify-content: center; /* Centraliza o item no mobile */
-    flex-direction: column; /* Coloca os itens um abaixo do outro no mobile */
-    align-items: center; /* Centraliza o item horizontalmente no mobile */
 }
 
-.main-navigation ul li {
-    margin: 10px 0;
-    width: 100%; /* Links ocupam toda a largura */
+.sidebar nav ul li {
+    margin-bottom: 5px;
 }
 
-.main-navigation ul li a {
+.sidebar nav ul li a {
+    display: block;
     color: #fff;
     text-decoration: none;
-    padding: 8px 0;
-    display: block; /* Ocupa a largura total do li */
+    padding: 15px 20px;
     font-size: 1.1em;
-    text-align: center; /* Centraliza o texto no mobile */
+    transition: background-color 0.2s ease;
 }
 
-/* Social Icons (Mobile-First) */
-.social-icons {
+.sidebar nav ul li a i {
+    margin-right: 10px;
+}
+
+.sidebar nav ul li a:hover {
+    background-color: #333;
+}
+
+/* Content Wrapper styles (Mobile-First) */
+.content-wrapper {
+    flex-grow: 1; /* Permite que o wrapper ocupe o espaço restante */
+    padding: 20px;
+    transition: margin-left 0.3s ease; /* Para animar o push do conteúdo */
+    width: 100%; /* Ocupa toda a largura no mobile */
+    overflow-x: hidden; /* Previne rolagem horizontal indesejada */
+}
+
+/* Header styles */
+header {
+    background-color: #1a1a1a;
+    padding: 15px 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
     display: flex;
-    justify-content: center; /* Centraliza os ícones sociais no mobile */
-    width: 100%;
-    padding: 0;
-}
-
-.social-icons a {
-    color: #fff;
-    text-decoration: none;
-    font-size: 1.5em;
-    margin: 0 10px; /* Espaçamento entre os ícones */
-}
-
-/* Search Container styles */
-.search-container {
-    width: 100%;
-    display: flex;
-    justify-content: center;
+    flex-direction: column; /* Em mobile, logo e busca empilhados */
     align-items: center;
+}
+
+.header-top-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Espaço entre botão/logo e outros elementos */
+    width: 100%; /* Ocupa a largura total do header */
+    margin-bottom: 15px; /* Espaçamento entre a linha superior e a barra de busca */
+}
+
+.logo-site {
+    max-height: 40px; /* Ajuste o tamanho do logo */
+    width: auto;
+}
+
+/* Search container styles */
+.search-container {
+    display: flex;
+    width: 100%; /* Ocupa a largura total do header no mobile */
+    max-width: 400px; /* Largura máxima para a busca */
+    border-radius: 5px;
+    overflow: hidden;
+    background-color: #333;
 }
 
 .search-input {
     flex-grow: 1;
     padding: 10px 15px;
-    border: 1px solid #ccc;
-    border-radius: 20px;
-    font-size: 1em;
-    background: #2A2A2A;
-    color: #FFF;
+    border: none;
+    background-color: transparent;
+    color: #fff;
+    outline: none;
 }
 
 .search-input::placeholder {
-    color: #BBB;
+    color: #bbb;
 }
 
 .search-button {
+    background-color: #ff5722;
+    border: none;
     padding: 10px 15px;
-    background-color: #E0301E; /* Cor do botão de pesquisa */
-    color: white;
-    border: none;
-    border-radius: 20px;
-    margin-left: 10px;
     cursor: pointer;
-    flex-shrink: 0;
+    color: #fff;
+    transition: background-color 0.3s ease;
 }
 
+.search-button:hover {
+    background-color: #e04a1f;
+}
+
+/* Main content area */
 .main-area {
-    flex-grow: 1;
-    padding: 20px;
+    padding: 10px; /* Padding para o conteúdo principal */
 }
 
-footer {
-    padding: 20px;
-    text-align: center;
-    background-color: #1a1a1a;
-    border-top: 1px solid #333;
-    margin-top: auto; /* Empurra o rodapé para baixo */
+.main-area h1 {
+    font-size: 2.2em;
+    color: #ff5722;
+    margin-bottom: 10px;
 }
 
-/* DROPDOWN STYLES */
-.dropdown {
-    position: relative;
-    display: inline-block;
-    text-align: center;
-    width: auto;
+.main-area p {
+    font-size: 1.1em;
+    line-height: 1.6;
+    margin-bottom: 20px;
 }
 
-.dropbtn {
-    color: white;
-    padding: 16px;
-    font-size: 1em;
-    border: none;
-    cursor: pointer;
-    background-color: transparent;
-    display: block;
+/* Estilos para as Seções de Filmes (Carrossel e Grade) */
+.movie-section {
+    margin-bottom: 40px;
 }
 
-.dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: #2A2A2A;
-    min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 1;
-    border-radius: 5px;
-    left: 50%;
-    transform: translateX(-50%);
-    margin-top: 5px;
-    overflow: hidden;
-}
-
-.dropdown-content a {
-    color: white;
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
-    text-align: left;
-}
-
-.dropdown-content a:hover {
-    background-color: #3d3d3d;
-}
-
-.dropdown:hover .dropdown-content {
-    display: block;
-}
-
-/* MOVIE CAROUSEL STYLES */
-.movie-carousel-section {
-    margin-top: 30px;
-    padding: 0 20px; /* Adiciona padding lateral para a seção */
-}
-
-.movie-carousel-section h2 {
-    color: #E0301E; /* Cor do título "Lançamentos" */
+.movie-section h2 {
+    font-size: 2em;
+    color: #ff5722;
     margin-bottom: 20px;
     text-align: center;
-    font-size: 1.8em;
 }
 
+/* Carrossel */
 .carousel-container {
     position: relative;
-    display: flex;
-    align-items: center;
     width: 100%;
-    overflow: hidden; /* Importante para esconder os filmes que estão fora de vista */
+    overflow: hidden; /* Esconde o que está fora da área visível */
+    padding: 20px 0; /* Espaço para as sombras/efeitos das bordas se houver */
+    background-color: #1a1a1a;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.5);
 }
 
 .carousel-track {
     display: flex;
-    overflow-x: scroll; /* Permite a rolagem horizontal */
-    -webkit-overflow-scrolling: touch; /* Melhor rolagem em dispositivos iOS */
-    scrollbar-width: none; /* Oculta a barra de rolagem para navegadores baseados em Firefox */
-    -ms-overflow-style: none;  /* Oculta a barra de rolagem para IE/Edge */
-    padding-bottom: 20px; /* Espaço para a sombra ou alguma barra de rolagem invisível */
+    overflow-x: scroll; /* Habilita a rolagem horizontal */
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch; /* Rolagem suave em iOS */
+    padding-bottom: 10px; /* Para evitar corte da sombra da scrollbar */
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none;  /* IE and Edge */
 }
 
+/* Esconder a scrollbar no WebKit */
 .carousel-track::-webkit-scrollbar {
-    display: none; /* Oculta a barra de rolagem para navegadores baseados em Webkit (Chrome, Safari) */
+    display: none;
 }
 
 .movie-card {
     flex: 0 0 auto; /* Não cresce, não encolhe, baseia-se no conteúdo */
-    width: 180px; /* Largura do pôster */
-    margin-right: 15px; /* Espaçamento entre os pôsteres */
+    width: 180px; /* Largura padrão de cada card */
+    margin-right: 15px; /* Espaçamento entre os cards */
     text-align: center;
+    background-color: #333;
+    border-radius: 8px;
+    overflow: hidden;
+    padding-bottom: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+    cursor: pointer; /* Adiciona o cursor de "mão" para indicar que é clicável */
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.movie-card:hover {
+    transform: translateY(-5px); /* Efeito de "levantar" */
+    box-shadow: 0 8px 16px rgba(0,0,0,0.5); /* Sombra para destaque */
 }
 
 .movie-card img {
     width: 100%;
-    height: 270px; /* Altura do pôster vertical (proporção 2:3 para 180x270) */
-    object-fit: cover; /* Garante que a imagem cubra a área sem distorcer */
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+    height: 270px; /* Altura padrão para as capas (aspect ratio 2:3) */
+    object-fit: cover; /* Garante que a imagem preencha o espaço */
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    margin-bottom: 10px;
 }
 
 .movie-card p {
-    margin-top: 10px;
-    font-size: 0.9em;
-    color: #ddd;
-    white-space: nowrap; /* Evita quebra de linha */
-    overflow: hidden; /* Esconde o texto que excede a largura */
-    text-overflow: ellipsis; /* Adiciona "..." ao texto que excede */
+    font-size: 1.1em;
+    color: #fff;
+    padding: 0 10px;
+    white-space: nowrap; /* Impede que o texto quebre a linha */
+    overflow: hidden; /* Esconde o texto que excede */
+    text-overflow: ellipsis; /* Adiciona "..." no final do texto cortado */
 }
 
 .carousel-arrow {
-    background-color: rgba(0, 0, 0, 0.5);
-    color: white;
-    border: none;
-    padding: 15px 10px;
-    cursor: pointer;
-    z-index: 2;
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
+    background-color: rgba(0,0,0,0.6);
+    color: #fff;
+    border: none;
+    padding: 15px 10px;
+    cursor: pointer;
     font-size: 1.5em;
-    border-radius: 50%; /* Faz as setas circulares */
+    z-index: 10;
+    border-radius: 5px;
     transition: background-color 0.3s ease;
 }
 
 .carousel-arrow:hover {
-    background-color: rgba(0, 0, 0, 0.8);
+    background-color: rgba(0,0,0,0.8);
 }
 
 .left-arrow {
-    left: 0;
+    left: 10px;
 }
 
 .right-arrow {
-    right: 0;
+    right: 10px;
 }
 
-/* MOVIE GRID STYLES */
-.movie-grid-section {
-    margin-top: 50px; /* Espaçamento entre o carrossel e a grade */
-    padding: 0 20px;
-}
-
-.movie-grid-section h2 {
-    color: #E0301E; /* Cor do título "Filmes" */
-    margin-bottom: 25px;
-    text-align: center;
-    font-size: 1.8em;
-}
-
+/* Grade de Filmes */
 .movie-grid-container {
     display: grid;
-    /* Por padrão, no mobile, vamos colocar 2 ou 3 colunas */
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); /* 2 a 3 colunas responsivas no mobile */
-    gap: 20px; /* Espaçamento entre os filmes na grade */
-    justify-content: center; /* Centraliza a grade */
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); /* 180px largura mínima, auto-fill preenche a linha */
+    gap: 20px; /* Espaçamento entre os cards na grade */
+    padding: 20px;
+    background-color: #1a1a1a;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+    justify-content: center; /* Centraliza a grade se não preencher toda a largura */
 }
 
-/* Desktop Layout (min-width: 769px) */
+/* Estilos para o Modal de Detalhes do Filme */
+.modal {
+    display: none; /* Escondido por padrão */
+    position: fixed; /* Posição fixa na tela */
+    z-index: 2000; /* Acima de todo o resto */
+    left: 0;
+    top: 0;
+    width: 100%; /* Largura total */
+    height: 100%; /* Altura total */
+    overflow: auto; /* Habilita rolagem se necessário */
+    background-color: rgba(0,0,0,0.8); /* Fundo preto semi-transparente */
+    display: flex; /* Para centralizar o conteúdo */
+    justify-content: center; /* Centraliza horizontalmente */
+    align-items: center; /* Centraliza verticalmente */
+}
+
+.modal-content {
+    background-color: #1a1a1a; /* Fundo do modal */
+    margin: auto; /* Centraliza o bloco do conteúdo */
+    padding: 30px;
+    border: 1px solid #444;
+    width: 90%; /* Largura no mobile */
+    max-width: 500px; /* Largura máxima para desktop */
+    border-radius: 8px;
+    position: relative; /* Para posicionar o botão de fechar */
+    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+    text-align: center; /* Centraliza o texto e a imagem dentro do modal */
+    animation: fadeIn 0.3s ease-out; /* Animação de entrada */
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.close-button {
+    color: #aaa;
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close-button:hover,
+.close-button:focus {
+    color: #fff;
+    text-decoration: none;
+}
+
+.modal-movie-cover {
+    max-width: 180px; /* Tamanho da capa no modal */
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+}
+
+.modal-body h2 {
+    font-size: 1.8em;
+    margin-bottom: 10px;
+    color: #ff5722; /* Cor destacada para o título */
+}
+
+.modal-body p {
+    font-size: 1em;
+    margin-bottom: 8px;
+    line-height: 1.5;
+}
+
+.watch-button {
+    background-color: #e50914; /* Vermelho estilo Netflix */
+    color: white;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1.1em;
+    margin-top: 20px;
+    transition: background-color 0.3s ease;
+}
+
+.watch-button:hover {
+    background-color: #ff0b17;
+}
+
+.security-note {
+    font-size: 0.8em;
+    color: #ccc;
+    margin-top: 20px;
+    text-align: left;
+    border-top: 1px dashed #444;
+    padding-top: 10px;
+}
+
+/* Ocultar o modal se não tiver a classe 'show' no JS */
+.modal:not(.show) {
+    display: none;
+}
+
+.modal.show {
+    display: flex; /* Exibir o modal */
+}
+
+/* MEDIA QUERIES */
 @media (min-width: 769px) {
+    body {
+        display: grid;
+        grid-template-columns: 250px 1fr; /* Sidebar fixa + conteúdo principal */
+        grid-template-areas: "sidebar content";
+    }
+
+    .sidebar {
+        position: static; /* Não mais fixed */
+        left: 0; /* Garante que não está escondida */
+        grid-area: sidebar;
+        height: 100vh; /* Ocupa a altura total da viewport */
+        padding-top: 20px; /* Ajuste para desktop, sem barra superior empurrando */
+    }
+
+    .content-wrapper {
+        grid-area: content;
+        margin-left: 0; /* Remove a margem lateral que empurrava o conteúdo */
+        padding: 20px; /* Padding padrão */
+    }
+
+    .content-wrapper.sidebar-open {
+        /* No desktop, a sidebar já está sempre "aberta" no layout de grid.
+           Esta classe pode ser desnecessária ou ter um efeito diferente. */
+        margin-left: 0; /* Garante que não haja margem extra */
+    }
+
     header {
-        flex-direction: row; /* Coloca logo, nav e search na mesma linha */
-        justify-content: space-between; /* Distribui o espaço entre os elementos */
-        align-items: center;
-        padding: 15px 20px;
+        flex-direction: row; /* Itens do cabeçalho lado a lado */
+        justify-content: space-between; /* Espaço entre o logo e a busca */
+        align-items: center; /* Alinha verticalmente */
+        padding: 15px 30px; /* Mais padding no desktop */
     }
 
     .header-top-row {
-        width: auto;
-        margin-bottom: 0;
+        width: auto; /* Deixa o conteúdo ditar a largura */
+        margin-bottom: 0; /* Remove margem inferior */
     }
 
     .menu-toggle-button {
-        display: none; /* Oculta o botão de hambúrguer no desktop */
+        display: none; /* Esconde o botão hambúrguer no desktop */
     }
 
     .logo-site {
-        margin-left: 0;
-        margin-right: 30px;
-    }
-
-    .main-navigation {
-        display: flex; /* Visível no desktop */
-        flex-direction: row; /* Links na horizontal */
-        flex-grow: 1; /* Ocupa o espaço disponível entre o logo e a pesquisa */
-        justify-content: flex-start; /* Alinha o menu e os ícones sociais à esquerda */
-        align-items: center;
-        margin-bottom: 0;
-    }
-
-    .main-navigation ul {
-        display: flex;
-        margin-bottom: 0;
-        justify-content: flex-start;
-        align-items: center;
-        flex-direction: row;
-    }
-
-    .main-navigation ul li {
-        margin: 0;
-        width: auto;
-    }
-
-    .main-navigation ul li a {
-        padding: 0;
-        font-size: 1em;
-        text-align: left;
-    }
-
-    .social-icons {
-        justify-content: flex-end;
-        width: auto;
-        margin-left: auto;
+        margin-left: 0; /* Remove margem extra se foi adicionada antes */
     }
 
     .search-container {
-        width: auto;
-        margin-left: 20px;
+        max-width: 350px; /* Limita a largura da busca no desktop */
+        width: auto; /* Permite que se ajuste ao conteúdo */
     }
 
-    .search-input {
-        flex-grow: 0;
-        width: 300px;
+    /* Ajustes para o modal em desktop */
+    .modal-content {
+        padding: 40px;
     }
-
-    /* DROPDOWN STYLES FOR DESKTOP */
-    .dropdown {
-        display: inline-block;
-        text-align: left;
-    }
-
-    .dropdown-content {
-        position: absolute;
-        left: 0;
-        transform: translateX(0);
-        margin-top: 0;
-    }
-
-    /* CAROUSEL DESKTOP ADJUSTMENTS */
-    .carousel-track {
-        justify-content: flex-start; /* Alinha os filmes à esquerda no desktop para rolagem infinita */
-        padding: 0 50px; /* Ajusta o padding para as setas não cobrirem os filmes */
-    }
-
-    .carousel-arrow {
-        padding: 20px 15px; /* Setas maiores */
-    }
-
-    /* MOVIE GRID DESKTOP ADJUSTMENTS */
-    .movie-grid-container {
-        grid-template-columns: repeat(7, 1fr); /* 7 colunas no desktop */
+    .modal-movie-cover {
+        max-width: 200px;
     }
 }
 
-/* Mobile Adjustments (max-width: 768px) */
+/* Media Queries para responsividade do modal */
 @media (max-width: 768px) {
-    .main-navigation ul {
-        flex-direction: column;
-        align-items: center;
+    .modal-content {
+        padding: 20px;
+        width: 95%; /* Um pouco mais de largura para telas pequenas */
     }
-
-    .main-navigation ul li {
-        width: 100%;
-        text-align: center;
+    .modal-movie-cover {
+        max-width: 150px;
     }
-
-    .dropdown {
-        width: 100%;
+    .modal-body h2 {
+        font-size: 1.5em;
     }
-
-    .dropdown-content {
-        position: static;
-        width: 100%;
-        box-shadow: none;
-        border-radius: 0;
-        transform: translateX(0);
-        left: auto;
-        background-color: #1a1a1a;
-    }
-
-    .dropdown-content a {
+    .watch-button {
         padding: 10px 20px;
-        text-align: center;
-    }
-
-    /* CAROUSEL MOBILE ADJUSTMENTS */
-    .carousel-container {
-        margin: 0 -20px; /* Compensa o padding do main-area para o carrossel ir de ponta a ponta */
-    }
-
-    .carousel-track {
-        padding: 0 20px 20px 20px; /* Ajusta o padding para que o primeiro e último item não fiquem colados na borda */
-        justify-content: flex-start; /* Alinha os filmes à esquerda no mobile */
-    }
-
-    .movie-card {
-        width: 150px; /* Pôsteres um pouco menores no mobile */
-        margin-right: 10px; /* Menor espaçamento */
-    }
-
-    .movie-card img {
-        height: 225px; /* Ajusta a altura proporcionalmente */
-    }
-
-    .carousel-arrow {
-        padding: 10px 8px; /* Setas menores no mobile */
-        font-size: 1.2em;
-    }
-
-    /* MOVIE GRID MOBILE ADJUSTMENTS */
-    .movie-grid-container {
-        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); /* 2 a 3 colunas menores no mobile */
-        gap: 15px;
+        font-size: 1em;
     }
 }
