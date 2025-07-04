@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
     const menuToggleButton = document.getElementById('menuToggleButton');
-    const mainNavigation = document.getElementById('mainNavigation');
+    const mainNavigation = document.getElementById('mainNavigation'); // Alterado para mainNavigation
 
     // Lógica para o botão de menu hambúrguer (agora para a navegação superior)
     if (menuToggleButton && mainNavigation) {
@@ -56,7 +56,6 @@ document.addEventListener('DOMContentLoaded', function() {
             moviesData = await response.json();
         } catch (error) {
             console.error('Erro ao carregar os dados dos filmes:', error);
-            // Renderiza com dados de fallback ou mostra mensagem de erro
             return;
         }
 
@@ -64,9 +63,9 @@ document.addEventListener('DOMContentLoaded', function() {
         carouselTrack.innerHTML = '';
         movieGridContainer.innerHTML = '';
 
-        // Filtra filmes para o carrossel (Lançamentos) e para a grade
-        const carouselMovies = moviesData.filter(movie => movie.type === 'lancamento');
-        const gridMovies = moviesData.filter(movie => movie.type === 'filme'); // Ou qualquer outra regra para a grade
+        // *** MUDANÇA AQUI: Filtra filmes usando o array 'sections' ***
+        const carouselMovies = moviesData.filter(movie => movie.sections && movie.sections.includes('lancamento'));
+        const gridMovies = moviesData.filter(movie => movie.sections && movie.sections.includes('filme'));
 
         // Renderiza filmes no Carrossel (com duplicação para efeito infinito)
         if (carouselMovies.length > 0) {
@@ -107,8 +106,6 @@ document.addEventListener('DOMContentLoaded', function() {
         if (movieCards.length === 0) return; // Nenhuma carta para inicializar
 
         // Certifique-se de que o itemWidth é calculado após a renderização e com o CSS aplicado
-        // Pode ser necessário um pequeno delay ou esperar por imagens carregadas em um cenário real.
-        // Para este exemplo, assumimos que os estilos já estão aplicados.
         const firstMovieCard = movieCards[0];
         const computedStyle = getComputedStyle(firstMovieCard);
         const itemWidth = firstMovieCard.offsetWidth + parseFloat(computedStyle.marginRight);
@@ -125,12 +122,13 @@ document.addEventListener('DOMContentLoaded', function() {
             if (isScrolling) return; // Se já estiver manipulando a rolagem, saia
 
             // Se rolou para a "parte duplicada" final, salta de volta para o início da parte original
-            if (carouselTrack.scrollLeft >= originalTrackWidth * 2 - carouselTrack.clientWidth) {
+            // Adicionado uma pequena margem de erro para garantir o trigger
+            if (carouselTrack.scrollLeft >= originalTrackWidth * 2 - carouselTrack.clientWidth - 5) {
                 isScrolling = true;
                 carouselTrack.scrollLeft = originalTrackWidth;
             }
             // Se rolou para a "parte duplicada" inicial, salta para o final da parte original
-            else if (carouselTrack.scrollLeft <= 0) {
+            else if (carouselTrack.scrollLeft <= 5) { // Pequena margem de erro para o limite esquerdo
                 isScrolling = true;
                 carouselTrack.scrollLeft = originalTrackWidth;
             }
