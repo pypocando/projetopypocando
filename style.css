@@ -240,7 +240,6 @@ footer {
 .carousel-track {
     display: flex;
     overflow-x: scroll; /* Permite a rolagem horizontal */
-    /* scroll-snap-type: x mandatory; REMOVIDO para o carrossel infinito com JS */
     -webkit-overflow-scrolling: touch; /* Melhor rolagem em dispositivos iOS */
     scrollbar-width: none; /* Oculta a barra de rolagem para navegadores baseados em Firefox */
     -ms-overflow-style: none;  /* Oculta a barra de rolagem para IE/Edge */
@@ -256,7 +255,6 @@ footer {
     width: 180px; /* Largura do pôster */
     margin-right: 15px; /* Espaçamento entre os pôsteres */
     text-align: center;
-    /* scroll-snap-align: start; REMOVIDO para o carrossel infinito com JS */
 }
 
 .movie-card img {
@@ -301,6 +299,27 @@ footer {
 
 .right-arrow {
     right: 0;
+}
+
+/* MOVIE GRID STYLES */
+.movie-grid-section {
+    margin-top: 50px; /* Espaçamento entre o carrossel e a grade */
+    padding: 0 20px;
+}
+
+.movie-grid-section h2 {
+    color: #E0301E; /* Cor do título "Filmes" */
+    margin-bottom: 25px;
+    text-align: center;
+    font-size: 1.8em;
+}
+
+.movie-grid-container {
+    display: grid;
+    /* Por padrão, no mobile, vamos colocar 2 ou 3 colunas */
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); /* 2 a 3 colunas responsivas no mobile */
+    gap: 20px; /* Espaçamento entre os filmes na grade */
+    justify-content: center; /* Centraliza a grade */
 }
 
 /* Desktop Layout (min-width: 769px) */
@@ -392,6 +411,11 @@ footer {
     .carousel-arrow {
         padding: 20px 15px; /* Setas maiores */
     }
+
+    /* MOVIE GRID DESKTOP ADJUSTMENTS */
+    .movie-grid-container {
+        grid-template-columns: repeat(7, 1fr); /* 7 colunas no desktop */
+    }
 }
 
 /* Mobile Adjustments (max-width: 768px) */
@@ -447,5 +471,11 @@ footer {
     .carousel-arrow {
         padding: 10px 8px; /* Setas menores no mobile */
         font-size: 1.2em;
+    }
+
+    /* MOVIE GRID MOBILE ADJUSTMENTS */
+    .movie-grid-container {
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); /* 2 a 3 colunas menores no mobile */
+        gap: 15px;
     }
 }
