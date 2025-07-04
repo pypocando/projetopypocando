@@ -1,19 +1,19 @@
 [
     {
         "id": "movie1",
-        "title": "Duna: Parte Dois",
+        "title": "Motoqueiro Fantasma",
         "coverUrl": "https://br.web.img2.acsta.net/medias/nmedia/18/89/80/57/20067419.jpg",
         "category": "ficcao-cientifica",
         "releaseDate": "2024-03-01",
-        "type": "lancamento"
+        "sections": ["lancamento", "filme"]
     },
     {
         "id": "movie2",
-        "title": "Godzilla e Kong: O Novo Império",
-        "coverUrl": "https://image.tmdb.org/t/p/w185/pWXrB2GgD8P4pQo0Vp4v5g0dM0.jpg",
+        "title": "Hellboy",
+        "coverUrl": "https://m.media-amazon.com/images/M/MV5BMzk3OWFlYTYtZjgzZi00NTFiLWE2NDUtYjZmMjAyMzlkZTI1XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg",
         "category": "acao-aventura",
         "releaseDate": "2024-03-29",
-        "type": "lancamento"
+        "sections": ["lancamento", "filme"]
     },
     {
         "id": "movie3",
@@ -21,7 +21,7 @@
         "coverUrl": "https://image.tmdb.org/t/p/w185/zYFQM9GtgVp25yR2Sg9E9d0r4B7.jpg",
         "category": "acao-aventura",
         "releaseDate": "2019-04-26",
-        "type": "lancamento"
+        "sections": ["lancamento"]
     },
     {
         "id": "movie4",
@@ -29,7 +29,7 @@
         "coverUrl": "https://image.tmdb.org/t/p/w185/ae0Q8yK2mE2mE22D7z0g3b9e4aB.jpg",
         "category": "ficcao-cientifica",
         "releaseDate": "2010-07-16",
-        "type": "lancamento"
+        "sections": ["lancamento"]
     },
     {
         "id": "movie5",
@@ -37,7 +37,7 @@
         "coverUrl": "https://image.tmdb.org/t/p/w185/gC2o61z3d3i2T4t4l2Fj7j0d1d1.jpg",
         "category": "ficcao-cientifica",
         "releaseDate": "2014-11-07",
-        "type": "lancamento"
+        "sections": ["filme"]
     },
     {
         "id": "movie6",
@@ -45,7 +45,7 @@
         "coverUrl": "https://image.tmdb.org/t/p/w185/sYxH2d4sP8T2lR7F6t0W4w0o8k2.jpg",
         "category": "ficcao-cientifica",
         "releaseDate": "1999-03-31",
-        "type": "lancamento"
+        "sections": ["filme"]
     },
     {
         "id": "movie7",
@@ -53,15 +53,15 @@
         "coverUrl": "https://image.tmdb.org/t/p/w185/m8rIeC0f7rQ6h3z3g3g3g3g3g3g3.jpg",
         "category": "fantasia",
         "releaseDate": "2001-12-19",
-        "type": "lancamento"
+        "sections": ["filme"]
     },
     {
         "id": "movie8",
         "title": "Parasita",
-        "coverUrl": "https://image.tmdb.org/t/p/w185/q7g2M2F0Z9Q1S0K0d8w0e0o0o0o0.jpg",
+        "coverUrl": "https://image.tmdb.org/t/p/w185/q7g2M2F0Z9Q1S0K0d8w0e0o0o0o0o0.jpg",
         "category": "drama",
         "releaseDate": "2019-05-30",
-        "type": "lancamento"
+        "sections": ["filme"]
     },
     {
         "id": "movie9",
@@ -69,15 +69,15 @@
         "coverUrl": "https://image.tmdb.org/t/p/w185/d5y0gQd2aD2d5D5d7D7d7D7d7D7.jpg",
         "category": "drama",
         "releaseDate": "1994-10-14",
-        "type": "lancamento"
+        "sections": ["filme"]
     },
     {
         "id": "movie10",
         "title": "Forrest Gump: O Contador de Histórias",
-        "coverUrl": "https://image.tmdb.org/t/p/w185/z3g2t0D0d0D0d0d0d0d0d0d0d0.jpg",
+        "coverUrl": "https://image.tmdb.org/t/p/w185/z3gP5o0p0o0p0o0p0o0p0o0p0o.jpg",
         "category": "drama",
         "releaseDate": "1994-07-06",
-        "type": "filme"
+        "sections": ["filme"]
     },
     {
         "id": "movie11",
@@ -85,7 +85,7 @@
         "coverUrl": "https://image.tmdb.org/t/p/w185/gWk1R9Q2Q5r7s5r7s5r7s5r7s5r.jpg",
         "category": "drama",
         "releaseDate": "1972-03-24",
-        "type": "filme"
+        "sections": ["filme"]
     },
     {
         "id": "movie12",
@@ -93,7 +93,7 @@
         "coverUrl": "https://image.tmdb.org/t/p/w185/aJgIuP7v7S7v7S7v7S7v7S7v7S7.jpg",
         "category": "drama",
         "releaseDate": "1999-10-15",
-        "type": "filme"
+        "sections": ["filme"]
     },
     {
         "id": "movie13",
@@ -101,7 +101,7 @@
         "coverUrl": "https://image.tmdb.org/t/p/w185/yLw1l2m3b3k1k1c2e3f4g5h6.jpg",
         "category": "animacao",
         "releaseDate": "2001-07-20",
-        "type": "filme"
+        "sections": ["filme"]
     },
     {
         "id": "movie14",
@@ -109,7 +109,7 @@
         "coverUrl": "https://image.tmdb.org/t/p/w185/zJgP5o0p0o0p0o0p0o0p0o0p0o.jpg",
         "category": "animacao",
         "releaseDate": "1995-11-22",
-        "type": "filme"
+        "sections": ["filme"]
     },
     {
         "id": "movie15",
@@ -117,6 +117,6 @@
         "coverUrl": "https://image.tmdb.org/t/p/w185/8dK1k8Xj8k8k8k8k8k8k8k8k8k.jpg",
         "category": "animacao",
         "releaseDate": "1994-06-24",
-        "type": "filme"
+        "sections": ["filme"]
     }
 ]
