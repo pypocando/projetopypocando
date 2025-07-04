@@ -142,7 +142,7 @@ header {
 
 .search-button {
     padding: 10px 15px;
-    background-color: #007bff;
+    background-color: #E0301E; /* AQUI ESTÁ A MUDANÇA PARA O VERMELHO! */
     color: white;
     border: none;
     border-radius: 20px;
