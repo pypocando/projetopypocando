@@ -157,6 +157,7 @@ header {
     position: relative;
     overflow: hidden;
     margin-bottom: 40px;
+    /* REMOVIDO: margin: 0 -20px; */ /* REMOVIDO: Para evitar rolagem horizontal indesejada no mobile */
 }
 
 .carousel-track {
@@ -167,6 +168,7 @@ header {
     padding-bottom: 10px; /* Espaço para a barra de rolagem */
     scrollbar-width: none; /* Esconde a barra de rolagem para Firefox */
     -ms-overflow-style: none;  /* Esconde a barra de rolagem para IE/Edge */
+    padding: 0 20px 20px 20px; /* Ajusta o padding para que o primeiro e último item não fiquem colados na borda */
 }
 
 /* Esconde a barra de rolagem para Webkit (Chrome, Safari) */
@@ -244,10 +246,10 @@ header {
 /* Movie Grid Section */
 .movie-grid-container {
     display: grid;
-    grid-template-columns: repeat(3, 1fr); /* ALTERADO: Para 3 filmes por linha no mobile */
-    gap: 0; /* ALTERADO: Remove os espaços entre os filmes */
-    padding: 0; /* ALTERADO: Remove padding das bordas */
-    justify-content: center; /* Mantido, mas com 3, 1fr pode não ter mais efeito significativo */
+    grid-template-columns: repeat(3, 1fr); /* Mantém 3 filmes por linha no mobile */
+    gap: 5px; /* Ajustado: Adiciona um pequeno espaçamento entre os filmes para evitar corte e melhorar visual */
+    padding: 0 10px; /* Ajustado: Adiciona padding nas laterais para evitar corte */
+    justify-content: center; /* Centraliza a grade */
 }
 
 /* Footer */
