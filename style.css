@@ -13,7 +13,6 @@ body {
     overflow-x: hidden; /* Mantém para evitar rolagem horizontal indesejada */
 }
 
-/* Content wrapper will no longer be pushed by a sidebar */
 .content-wrapper {
     width: 100%;
     min-height: 100vh;
@@ -72,10 +71,10 @@ header {
 
 /* Main Navigation (Mobile-First) */
 .main-navigation {
-    display: none; /* Oculto por padrão no mobile */
+    display: none; /* Oculto por padrão no mobile, será ativado por JS */
     width: 100%;
     margin-bottom: 15px;
-    flex-direction: column; /* Links empilhados no mobile */
+    flex-direction: column;
     align-items: flex-start;
 }
 
@@ -87,8 +86,8 @@ header {
     list-style: none;
     width: 100%;
     padding: 0;
-    margin-bottom: 0; /* Removido para o dropdown */
-    display: flex; /* Para centralizar o item de navegação no mobile */
+    margin-bottom: 0;
+    display: flex;
     justify-content: center; /* Centraliza o item no mobile */
     flex-direction: column; /* Coloca os itens um abaixo do outro no mobile */
     align-items: center; /* Centraliza o item horizontalmente no mobile */
@@ -170,57 +169,138 @@ footer {
 }
 
 /* DROPDOWN STYLES */
-/* O contêiner para o menu suspenso */
 .dropdown {
-    position: relative; /* Necessário para posicionar o dropdown-content */
-    display: inline-block; /* Permite que o li se ajuste ao conteúdo e permite posicionamento relativo */
-    text-align: center; /* Centraliza o "Categorias" no mobile */
-    width: auto; /* Ajusta a largura no mobile */
+    position: relative;
+    display: inline-block;
+    text-align: center;
+    width: auto;
 }
 
-/* Estiliza o botão/link que abre o menu suspenso */
 .dropbtn {
     color: white;
     padding: 16px;
     font-size: 1em;
     border: none;
     cursor: pointer;
-    background-color: transparent; /* Garante que não tenha fundo no desktop */
-    display: block; /* Para que o ícone de seta fique na mesma linha no desktop */
+    background-color: transparent;
+    display: block;
 }
 
-/* Conteúdo do menu suspenso (oculto por padrão) */
 .dropdown-content {
     display: none;
     position: absolute;
-    background-color: #2A2A2A; /* Cor de fundo do dropdown */
+    background-color: #2A2A2A;
     min-width: 160px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 1;
     border-radius: 5px;
-    left: 50%; /* Centraliza o dropdown */
-    transform: translateX(-50%); /* Centraliza o dropdown */
-    margin-top: 5px; /* Espaço entre o item pai e o dropdown */
-    overflow: hidden; /* Garante que os cantos arredondados funcionem */
+    left: 50%;
+    transform: translateX(-50%);
+    margin-top: 5px;
+    overflow: hidden;
 }
 
-/* Links dentro do menu suspenso */
 .dropdown-content a {
     color: white;
     padding: 12px 16px;
     text-decoration: none;
     display: block;
-    text-align: left; /* Alinha o texto das opções à esquerda */
+    text-align: left;
 }
 
-/* Mudar a cor dos links do menu suspenso ao passar o mouse */
 .dropdown-content a:hover {
-    background-color: #3d3d3d; /* Cor ao passar o mouse sobre as opções */
+    background-color: #3d3d3d;
 }
 
-/* Mostrar o menu suspenso ao passar o mouse sobre o botão/link pai */
 .dropdown:hover .dropdown-content {
     display: block;
+}
+
+/* MOVIE CAROUSEL STYLES */
+.movie-carousel-section {
+    margin-top: 30px;
+    padding: 0 20px; /* Adiciona padding lateral para a seção */
+}
+
+.movie-carousel-section h2 {
+    color: #E0301E; /* Cor do título "Lançamentos" */
+    margin-bottom: 20px;
+    text-align: center;
+    font-size: 1.8em;
+}
+
+.carousel-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    overflow: hidden; /* Importante para esconder os filmes que estão fora de vista */
+}
+
+.carousel-track {
+    display: flex;
+    overflow-x: scroll; /* Permite a rolagem horizontal */
+    scroll-snap-type: x mandatory; /* Garante que os itens parem em pontos específicos */
+    -webkit-overflow-scrolling: touch; /* Melhor rolagem em dispositivos iOS */
+    scrollbar-width: none; /* Oculta a barra de rolagem para navegadores baseados em Firefox */
+    -ms-overflow-style: none;  /* Oculta a barra de rolagem para IE/Edge */
+    padding-bottom: 20px; /* Espaço para a sombra ou alguma barra de rolagem invisível */
+}
+
+.carousel-track::-webkit-scrollbar {
+    display: none; /* Oculta a barra de rolagem para navegadores baseados em Webkit (Chrome, Safari) */
+}
+
+.movie-card {
+    flex: 0 0 auto; /* Não cresce, não encolhe, baseia-se no conteúdo */
+    width: 180px; /* Largura do pôster */
+    margin-right: 15px; /* Espaçamento entre os pôsteres */
+    text-align: center;
+    scroll-snap-align: start; /* Alinha o início do item ao início do contêiner de rolagem */
+}
+
+.movie-card img {
+    width: 100%;
+    height: 270px; /* Altura do pôster vertical (proporção 2:3 para 180x270) */
+    object-fit: cover; /* Garante que a imagem cubra a área sem distorcer */
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+}
+
+.movie-card p {
+    margin-top: 10px;
+    font-size: 0.9em;
+    color: #ddd;
+    white-space: nowrap; /* Evita quebra de linha */
+    overflow: hidden; /* Esconde o texto que excede a largura */
+    text-overflow: ellipsis; /* Adiciona "..." ao texto que excede */
+}
+
+.carousel-arrow {
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    padding: 15px 10px;
+    cursor: pointer;
+    z-index: 2;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.5em;
+    border-radius: 50%; /* Faz as setas circulares */
+    transition: background-color 0.3s ease;
+}
+
+.carousel-arrow:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+.left-arrow {
+    left: 0;
+}
+
+.right-arrow {
+    right: 0;
 }
 
 /* Desktop Layout (min-width: 769px) */
@@ -233,7 +313,7 @@ footer {
     }
 
     .header-top-row {
-        width: auto; /* Permite que o logo e botão se ajustem ao conteúdo */
+        width: auto;
         margin-bottom: 0;
     }
 
@@ -242,8 +322,8 @@ footer {
     }
 
     .logo-site {
-        margin-left: 0; /* Remove margem extra */
-        margin-right: 30px; /* Espaço entre o logo e o menu de navegação */
+        margin-left: 0;
+        margin-right: 30px;
     }
 
     .main-navigation {
@@ -256,83 +336,116 @@ footer {
     }
 
     .main-navigation ul {
-        display: flex; /* Links da navegação horizontalmente */
+        display: flex;
         margin-bottom: 0;
-        margin-right: 0; /* Ajustado para um único item */
-        justify-content: flex-start; /* Alinha o item de navegação à esquerda no desktop */
+        justify-content: flex-start;
         align-items: center;
-        flex-direction: row; /* Volta a ser row para desktop */
+        flex-direction: row;
     }
 
     .main-navigation ul li {
         margin: 0;
-        margin-right: 0; /* Não precisa de margem extra entre itens se há apenas um */
         width: auto;
     }
 
     .main-navigation ul li a {
-        padding: 0; /* Remove padding para alinhamento horizontal */
-        font-size: 1em; /* Tamanho da fonte padrão */
-        text-align: left; /* Alinha o texto à esquerda no desktop */
+        padding: 0;
+        font-size: 1em;
+        text-align: left;
     }
 
     .social-icons {
-        justify-content: flex-end; /* Alinha os ícones sociais à direita dentro da navegação */
-        width: auto; /* Ajusta a largura ao conteúdo */
-        margin-left: auto; /* Empurra para a direita se houver espaço */
+        justify-content: flex-end;
+        width: auto;
+        margin-left: auto;
     }
 
     .search-container {
-        width: auto; /* Permite que o contêiner de pesquisa se dimensione */
-        margin-left: 20px; /* Espaço entre a navegação e a pesquisa */
+        width: auto;
+        margin-left: 20px;
     }
 
     .search-input {
-        width: 300px; /* Largura fixa para o input no desktop */
+        flex-grow: 0;
+        width: 300px;
     }
 
     /* DROPDOWN STYLES FOR DESKTOP */
     .dropdown {
-        display: inline-block; /* Mantém como bloco inline no desktop */
-        text-align: left; /* Alinha o "Categorias" à esquerda no desktop */
+        display: inline-block;
+        text-align: left;
     }
 
     .dropdown-content {
-        position: absolute; /* Posição absoluta para o menu suspenso */
-        left: 0; /* Alinha o dropdown com o início do item pai no desktop */
-        transform: translateX(0); /* Remove a transformação de centralização do mobile */
-        margin-top: 0; /* Remove margem superior */
+        position: absolute;
+        left: 0;
+        transform: translateX(0);
+        margin-top: 0;
+    }
+
+    /* CAROUSEL DESKTOP ADJUSTMENTS */
+    .carousel-track {
+        justify-content: center; /* Centraliza os filmes no desktop */
+        padding: 0 50px; /* Ajusta o padding para as setas não cobrirem os filmes */
+    }
+
+    .carousel-arrow {
+        padding: 20px 15px; /* Setas maiores */
     }
 }
 
-/* Estilo para quando a navegação principal está ativa (mobile) */
+/* Mobile Adjustments (max-width: 768px) */
 @media (max-width: 768px) {
     .main-navigation ul {
-        flex-direction: column; /* Força os itens a empilharem verticalmente */
-        align-items: center; /* Centraliza os itens empilhados */
+        flex-direction: column;
+        align-items: center;
     }
 
     .main-navigation ul li {
-        width: 100%; /* Faz com que os itens preencham a largura */
-        text-align: center; /* Centraliza o texto dos links */
+        width: 100%;
+        text-align: center;
     }
 
     .dropdown {
-        width: 100%; /* Garante que o dropdown ocupe a largura total no mobile */
+        width: 100%;
     }
 
     .dropdown-content {
-        position: static; /* Volta a ser parte do fluxo normal no mobile */
-        width: 100%; /* Ocupa 100% da largura do pai */
-        box-shadow: none; /* Remove sombra no mobile para visual mais limpo */
-        border-radius: 0; /* Remove arredondamento no mobile */
-        transform: translateX(0); /* Remove a transformação de centralização */
-        left: auto; /* Remove posicionamento absoluto */
-        background-color: #1a1a1a; /* Pode ser uma cor diferente para o dropdown no mobile */
+        position: static;
+        width: 100%;
+        box-shadow: none;
+        border-radius: 0;
+        transform: translateX(0);
+        left: auto;
+        background-color: #1a1a1a;
     }
 
     .dropdown-content a {
-        padding: 10px 20px; /* Ajusta o preenchimento para links no mobile */
-        text-align: center; /* Centraliza o texto das opções no mobile */
+        padding: 10px 20px;
+        text-align: center;
+    }
+
+    /* CAROUSEL MOBILE ADJUSTMENTS */
+    .carousel-container {
+        margin: 0 -20px; /* Compensa o padding do main-area para o carrossel ir de ponta a ponta */
+    }
+
+    .carousel-track {
+        padding: 0 20px 20px 20px; /* Ajusta o padding para que o primeiro e último item não fiquem colados na borda */
+        justify-content: flex-start; /* Alinha os filmes à esquerda no mobile */
+    }
+
+    .movie-card {
+        width: 150px; /* Pôsteres um pouco menores no mobile */
+        margin-right: 10px; /* Menor espaçamento */
+    }
+
+    .movie-card img {
+        height: 225px; /* Ajusta a altura proporcionalmente */
+    }
+
+    .carousel-arrow {
+        padding: 10px 8px; /* Setas menores no mobile */
+        font-size: 1.2em;
     }
 }
