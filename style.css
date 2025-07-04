@@ -87,7 +87,11 @@ header {
     list-style: none;
     width: 100%;
     padding: 0;
-    margin-bottom: 15px; /* Espaço entre a lista de links e ícones sociais */
+    margin-bottom: 0; /* Removido para o dropdown */
+    display: flex; /* Para centralizar o item de navegação no mobile */
+    justify-content: center; /* Centraliza o item no mobile */
+    flex-direction: column; /* Coloca os itens um abaixo do outro no mobile */
+    align-items: center; /* Centraliza o item horizontalmente no mobile */
 }
 
 .main-navigation ul li {
@@ -101,12 +105,13 @@ header {
     padding: 8px 0;
     display: block; /* Ocupa a largura total do li */
     font-size: 1.1em;
+    text-align: center; /* Centraliza o texto no mobile */
 }
 
 /* Social Icons (Mobile-First) */
 .social-icons {
     display: flex;
-    justify-content: flex-start; /* Alinhamento à esquerda no mobile */
+    justify-content: center; /* Centraliza os ícones sociais no mobile */
     width: 100%;
     padding: 0;
 }
@@ -115,7 +120,7 @@ header {
     color: #fff;
     text-decoration: none;
     font-size: 1.5em;
-    margin-right: 20px; /* Espaçamento entre os ícones */
+    margin: 0 10px; /* Espaçamento entre os ícones */
 }
 
 /* Search Container styles */
@@ -142,7 +147,7 @@ header {
 
 .search-button {
     padding: 10px 15px;
-    background-color: #E0301E; /* AQUI ESTÁ A MUDANÇA PARA O VERMELHO! */
+    background-color: #E0301E; /* Cor do botão de pesquisa */
     color: white;
     border: none;
     border-radius: 20px;
@@ -162,6 +167,60 @@ footer {
     background-color: #1a1a1a;
     border-top: 1px solid #333;
     margin-top: auto; /* Empurra o rodapé para baixo */
+}
+
+/* DROPDOWN STYLES */
+/* O contêiner para o menu suspenso */
+.dropdown {
+    position: relative; /* Necessário para posicionar o dropdown-content */
+    display: inline-block; /* Permite que o li se ajuste ao conteúdo e permite posicionamento relativo */
+    text-align: center; /* Centraliza o "Categorias" no mobile */
+    width: auto; /* Ajusta a largura no mobile */
+}
+
+/* Estiliza o botão/link que abre o menu suspenso */
+.dropbtn {
+    color: white;
+    padding: 16px;
+    font-size: 1em;
+    border: none;
+    cursor: pointer;
+    background-color: transparent; /* Garante que não tenha fundo no desktop */
+    display: block; /* Para que o ícone de seta fique na mesma linha no desktop */
+}
+
+/* Conteúdo do menu suspenso (oculto por padrão) */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #2A2A2A; /* Cor de fundo do dropdown */
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    border-radius: 5px;
+    left: 50%; /* Centraliza o dropdown */
+    transform: translateX(-50%); /* Centraliza o dropdown */
+    margin-top: 5px; /* Espaço entre o item pai e o dropdown */
+    overflow: hidden; /* Garante que os cantos arredondados funcionem */
+}
+
+/* Links dentro do menu suspenso */
+.dropdown-content a {
+    color: white;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    text-align: left; /* Alinha o texto das opções à esquerda */
+}
+
+/* Mudar a cor dos links do menu suspenso ao passar o mouse */
+.dropdown-content a:hover {
+    background-color: #3d3d3d; /* Cor ao passar o mouse sobre as opções */
+}
+
+/* Mostrar o menu suspenso ao passar o mouse sobre o botão/link pai */
+.dropdown:hover .dropdown-content {
+    display: block;
 }
 
 /* Desktop Layout (min-width: 769px) */
@@ -199,18 +258,22 @@ footer {
     .main-navigation ul {
         display: flex; /* Links da navegação horizontalmente */
         margin-bottom: 0;
-        margin-right: 30px; /* Espaço entre o menu de navegação e os ícones sociais */
+        margin-right: 0; /* Ajustado para um único item */
+        justify-content: flex-start; /* Alinha o item de navegação à esquerda no desktop */
+        align-items: center;
+        flex-direction: row; /* Volta a ser row para desktop */
     }
 
     .main-navigation ul li {
         margin: 0;
-        margin-right: 25px; /* Espaçamento entre os links */
+        margin-right: 0; /* Não precisa de margem extra entre itens se há apenas um */
         width: auto;
     }
 
     .main-navigation ul li a {
         padding: 0; /* Remove padding para alinhamento horizontal */
         font-size: 1em; /* Tamanho da fonte padrão */
+        text-align: left; /* Alinha o texto à esquerda no desktop */
     }
 
     .social-icons {
@@ -226,5 +289,50 @@ footer {
 
     .search-input {
         width: 300px; /* Largura fixa para o input no desktop */
+    }
+
+    /* DROPDOWN STYLES FOR DESKTOP */
+    .dropdown {
+        display: inline-block; /* Mantém como bloco inline no desktop */
+        text-align: left; /* Alinha o "Categorias" à esquerda no desktop */
+    }
+
+    .dropdown-content {
+        position: absolute; /* Posição absoluta para o menu suspenso */
+        left: 0; /* Alinha o dropdown com o início do item pai no desktop */
+        transform: translateX(0); /* Remove a transformação de centralização do mobile */
+        margin-top: 0; /* Remove margem superior */
+    }
+}
+
+/* Estilo para quando a navegação principal está ativa (mobile) */
+@media (max-width: 768px) {
+    .main-navigation ul {
+        flex-direction: column; /* Força os itens a empilharem verticalmente */
+        align-items: center; /* Centraliza os itens empilhados */
+    }
+
+    .main-navigation ul li {
+        width: 100%; /* Faz com que os itens preencham a largura */
+        text-align: center; /* Centraliza o texto dos links */
+    }
+
+    .dropdown {
+        width: 100%; /* Garante que o dropdown ocupe a largura total no mobile */
+    }
+
+    .dropdown-content {
+        position: static; /* Volta a ser parte do fluxo normal no mobile */
+        width: 100%; /* Ocupa 100% da largura do pai */
+        box-shadow: none; /* Remove sombra no mobile para visual mais limpo */
+        border-radius: 0; /* Remove arredondamento no mobile */
+        transform: translateX(0); /* Remove a transformação de centralização */
+        left: auto; /* Remove posicionamento absoluto */
+        background-color: #1a1a1a; /* Pode ser uma cor diferente para o dropdown no mobile */
+    }
+
+    .dropdown-content a {
+        padding: 10px 20px; /* Ajusta o preenchimento para links no mobile */
+        text-align: center; /* Centraliza o texto das opções no mobile */
     }
 }
