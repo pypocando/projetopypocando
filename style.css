@@ -157,7 +157,7 @@ header {
     position: relative;
     overflow: hidden;
     margin-bottom: 40px;
-    /* REMOVIDO: margin: 0 -20px; */ /* REMOVIDO: Para evitar rolagem horizontal indesejada no mobile */
+    padding: 0 20px; /* Adicionado padding aqui para espaçamento das bordas da tela no mobile */
 }
 
 .carousel-track {
@@ -168,7 +168,7 @@ header {
     padding-bottom: 10px; /* Espaço para a barra de rolagem */
     scrollbar-width: none; /* Esconde a barra de rolagem para Firefox */
     -ms-overflow-style: none;  /* Esconde a barra de rolagem para IE/Edge */
-    padding: 0 20px 20px 20px; /* Ajusta o padding para que o primeiro e último item não fiquem colados na borda */
+    padding: 0 0 20px 0; /* Alterado: Removido o padding horizontal aqui para o mobile */
 }
 
 /* Esconde a barra de rolagem para Webkit (Chrome, Safari) */
