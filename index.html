@@ -13,11 +13,6 @@
     <div class="content-wrapper" id="contentWrapper">
         <header>
             <div class="header-top-row">
-                <div class="menu-toggle-button" id="menuToggleButton">
-                    <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M3 18H21V16H3V18ZM3 13H21V11H3V13ZM3 6V8H21V6H3Z"></path>
-                    </svg>
-                </div>
                 <img src="pypocando_logo.png" alt="Logo Pypocando" class="logo-site">
             </div>
             
@@ -78,6 +73,20 @@
         <footer>
             <p>&copy; 2024 Pypocando. Todos os direitos reservados.</p>
         </footer>
+    </div>
+
+    <div id="movieDetailsModal" class="movie-modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <div class="modal-movie-details">
+                <img id="modalMovieCover" src="" alt="Capa do Filme">
+                <h3 id="modalMovieTitle"></h3>
+                <p>Categoria: <span id="modalMovieCategory"></span></p>
+                <p>Lançamento: <span id="modalMovieReleaseDate"></span></p>
+                <a id="modalWatchButton" href="#" target="_blank" class="watch-button" style="display:none;">Assistir Agora</a>
+                <p class="security-note">*Para sua segurança e evitar alertas de perigo, o botão "Assistir Agora" deve levar a plataformas de streaming legítimas (ex: Netflix, YouTube oficial de trailers) ou servir apenas como placeholder. Não linke para fontes desconhecidas ou ilegais.</p>
+            </div>
+        </div>
     </div>
 
     <script src="script.js"></script>
