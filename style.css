@@ -323,12 +323,23 @@ footer {
         text-align: left; /* Alinha títulos à esquerda no desktop */
     }
 
+    /* Alterações para o Carrossel (preencher espaços nas laterais) */
+    .movie-carousel-section {
+        width: 100vw; /* Faz a seção ocupar toda a largura da viewport */
+        position: relative; /* Necessário para posicionamento relativo ao viewport */
+        left: 50%;
+        transform: translateX(-50%); /* Centraliza a seção na tela */
+        margin-bottom: 40px; /* Mantém a margem inferior existente */
+        padding: 0; /* Remove qualquer padding interno que possa causar espaçamento */
+    }
+
     .carousel-container {
-        margin: 0; /* Remove margem extra do carrossel no desktop */
+        margin: 0; /* Garante que o contêiner do carrossel ocupe 100% da largura da seção */
+        /* Nenhuma max-width adicional aqui para permitir que se estenda com a seção pai */
     }
 
     .carousel-track {
-        padding: 0 10px; /* Menor padding nas bordas para o carrossel */
+        padding: 0; /* Remove o padding horizontal interno para que os cards comecem na borda */
     }
 }
 
