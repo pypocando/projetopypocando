@@ -1,76 +1,27 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // const menuToggleButton = document.getElementById('menuToggleButton'); // Removido, não é mais necessário
-    const mainNavigation = document.getElementById('mainNavigation'); // Alterado para mainNavigation
+    const menuToggleButton = document.getElementById('menuToggleButton');
+    const mainNavigation = document.getElementById('mainNavigation');
 
-    // Lógica para o botão de menu hambúrguer (agora para a navegação superior)
-    // Este bloco foi mantido por causa de mainNavigation, mas o botão real está desativado no HTML e CSS.
-    // Se o user quiser um menu de hambúrguer novamente, este bloco pode ser reativado.
-    // if (menuToggleButton && mainNavigation) {
-    //     menuToggleButton.addEventListener('click', function() {
-    //         mainNavigation.classList.toggle('active');
-    //     });
+    if (menuToggleButton && mainNavigation) {
+        menuToggleButton.addEventListener('click', function() {
+            mainNavigation.classList.toggle('active');
+        });
 
-    //     // Fechar a navegação ao redimensionar para desktop
-    //     window.addEventListener('resize', function() {
-    //         if (window.innerWidth >= 769) {
-    //             mainNavigation.classList.remove('active');
-    //         }
-    //     });
-    // }
-
-    // Obter elementos do modal
-    const movieDetailsModal = document.getElementById('movieDetailsModal');
-    const closeButton = document.querySelector('.close-button');
-    const modalMovieCover = document.getElementById('modalMovieCover');
-    const modalMovieTitle = document.getElementById('modalMovieTitle');
-    const modalMovieCategory = document.getElementById('modalMovieCategory');
-    const modalMovieReleaseDate = document.getElementById('modalMovieReleaseDate');
-    const modalWatchButton = document.getElementById('modalWatchButton');
-
-    // Função para abrir o modal
-    function openModal(movie) {
-        modalMovieCover.src = movie.coverUrl;
-        modalMovieCover.alt = `Capa do Filme ${movie.title}`;
-        modalMovieTitle.textContent = movie.title;
-        modalMovieCategory.textContent = movie.category;
-        modalMovieReleaseDate.textContent = movie.releaseDate;
-
-        // Oculta o botão "Assistir Agora" se não houver watchUrl
-        if (movie.watchUrl) {
-            modalWatchButton.href = movie.watchUrl;
-            modalWatchButton.style.display = 'inline-block';
-        } else {
-            modalWatchButton.style.display = 'none';
-        }
-        
-        movieDetailsModal.classList.add('active'); // Mostra o modal
+        window.addEventListener('resize', function() {
+            if (window.innerWidth >= 769) {
+                mainNavigation.classList.remove('active');
+            }
+        });
     }
 
-    // Função para fechar o modal
-    function closeModal() {
-        movieDetailsModal.classList.remove('active'); // Oculta o modal
-    }
-
-    // Event listeners para fechar o modal
-    closeButton.addEventListener('click', closeModal);
-    window.addEventListener('click', function(event) {
-        if (event.target === movieDetailsModal) {
-            closeModal();
-        }
-    });
-
-    // Função auxiliar para criar um movie-card (modificada para ser clicável)
     function createMovieCard(movie) {
         const movieCard = document.createElement('div');
         movieCard.classList.add('movie-card');
-        
-        // Adiciona um evento de clique ao card
-        movieCard.addEventListener('click', () => openModal(movie));
 
         const img = document.createElement('img');
         img.src = movie.coverUrl;
         img.alt = `Pôster do Filme ${movie.title}`;
-        img.loading = 'lazy'; // Otimização para carregamento de imagens
+        img.loading = 'lazy';
 
         const p = document.createElement('p');
         p.textContent = movie.title;
@@ -81,16 +32,17 @@ document.addEventListener('DOMContentLoaded', function() {
         return movieCard;
     }
 
-    // Função principal para renderizar os filmes
     async function renderMovies() {
         const carouselTrack = document.querySelector('.carousel-track');
         const movieGridContainer = document.querySelector('.movie-grid-container');
         const leftArrow = document.querySelector('.left-arrow');
         const rightArrow = document.querySelector('.right-arrow');
 
+        // Adicionei uma verificação mais robusta aqui para garantir que todos os elementos existem
         if (!carouselTrack || !movieGridContainer || !leftArrow || !rightArrow) {
-            console.error('Um ou mais elementos de contêiner ou seta não foram encontrados.');
-            return;
+            console.error('Um ou mais elementos de contêiner ou seta não foram encontrados. Carrossel ou grade de filmes não serão exibidos corretamente.');
+            // Não retorne aqui, pois ainda queremos tentar renderizar a grade se o carrossel falhar e vice-versa.
+            // A inicialização do carrossel será guardada por sua própria verificação.
         }
 
         let moviesData = [];
@@ -102,111 +54,101 @@ document.addEventListener('DOMContentLoaded', function() {
             moviesData = await response.json();
         } catch (error) {
             console.error('Erro ao carregar os dados dos filmes:', error);
-            return;
+            return; // Retorna aqui se os dados não puderem ser carregados
         }
 
-        // Limpa contêineres antes de adicionar novos elementos (caso haja conteúdo anterior)
         carouselTrack.innerHTML = '';
         movieGridContainer.innerHTML = '';
 
-        // *** MUDANÇA AQUI: Filtra filmes usando o array 'sections' ***
         const carouselMovies = moviesData.filter(movie => movie.sections && movie.sections.includes('lancamento'));
         const gridMovies = moviesData.filter(movie => movie.sections && movie.sections.includes('filme'));
 
-        // Renderiza filmes no Carrossel (com duplicação para efeito infinito)
-        if (carouselMovies.length > 0) {
-            // Adiciona a "cópia inicial" dos filmes (para rolagem para a esquerda)
+        if (carouselMovies.length > 0 && carouselTrack && leftArrow && rightArrow) { // Verifica novamente as setas antes de preencher o carrossel
             carouselMovies.forEach(movie => {
                 carouselTrack.appendChild(createMovieCard(movie));
             });
-
-            // Adiciona os filmes originais
             carouselMovies.forEach(movie => {
                 carouselTrack.appendChild(createMovieCard(movie));
             });
-
-            // Adiciona a "cópia final" dos filmes (para rolagem para a direita)
             carouselMovies.forEach(movie => {
                 carouselTrack.appendChild(createMovieCard(movie));
             });
-
-            // Inicializa a lógica de carrossel infinito APÓS os elementos terem sido adicionados ao DOM
             initializeCarousel(carouselMovies.length);
+        } else if (carouselMovies.length > 0) {
+            console.warn('Carrossel não pôde ser inicializado completamente devido a elementos ausentes.');
         }
 
-        // Renderiza filmes na Grade
-        if (gridMovies.length > 0) {
+
+        if (gridMovies.length > 0 && movieGridContainer) { // Verifica se o contêiner da grade existe
             gridMovies.forEach(movie => {
                 movieGridContainer.appendChild(createMovieCard(movie));
             });
+        } else if (gridMovies.length > 0) {
+             console.warn('Grade de filmes não pôde ser inicializada completamente devido a elementos ausentes.');
         }
     }
 
-    // Função para inicializar/reinicializar a lógica do carrossel
     function initializeCarousel(numOriginalItems) {
         const carouselTrack = document.querySelector('.carousel-track');
         const leftArrow = document.querySelector('.left-arrow');
         const rightArrow = document.querySelector('.right-arrow');
-        const movieCards = carouselTrack.querySelectorAll('.movie-card'); // Pega os cards recém-criados
+        
+        // Adicionada uma verificação de existência dos elementos aqui também
+        if (!carouselTrack || !leftArrow || !rightArrow) {
+            console.error('Elementos do carrossel (track ou setas) não encontrados para inicialização.');
+            return;
+        }
 
-        if (movieCards.length === 0) return; // Nenhuma carta para inicializar
+        const movieCards = carouselTrack.querySelectorAll('.movie-card');
 
-        // Certifique-se de que o itemWidth é calculado após a renderização e com o CSS aplicado
+        if (movieCards.length === 0) return;
+
         const firstMovieCard = movieCards[0];
         const computedStyle = getComputedStyle(firstMovieCard);
         const itemWidth = firstMovieCard.offsetWidth + parseFloat(computedStyle.marginRight);
 
-        // A largura da pista original é o número de itens originais * a largura de um item
         const originalTrackWidth = itemWidth * numOriginalItems;
-
-        // Define a posição inicial da rolagem para o início do segundo conjunto de itens (os "originais")
         carouselTrack.scrollLeft = originalTrackWidth;
 
-        let isScrolling = false; // Flag para controlar rolagem manual e evitar loops infinitos de evento
+        let isScrolling = false;
 
         function handleInfiniteScroll() {
-            if (isScrolling) return; // Se já estiver manipulando a rolagem, saia
+            if (isScrolling) return;
 
-            // Se rolou para a "parte duplicada" final, salta de volta para o início da parte original
-            // Adicionado uma pequena margem de erro para garantir o trigger
             if (carouselTrack.scrollLeft >= originalTrackWidth * 2 - carouselTrack.clientWidth - 5) {
                 isScrolling = true;
                 carouselTrack.scrollLeft = originalTrackWidth;
-            }
-            // Se rolou para a "parte duplicada" inicial, salta para o final da parte original
-            else if (carouselTrack.scrollLeft <= 5) { // Pequena margem de erro para o limite esquerdo
+            } else if (carouselTrack.scrollLeft <= 5) {
                 isScrolling = true;
                 carouselTrack.scrollLeft = originalTrackWidth;
             }
-            // Reseta a flag após um pequeno timeout para permitir novas rolagem
-            setTimeout(() => { isScrolling = false; }, 50); // Ajuste o tempo se necessário
+            setTimeout(() => { isScrolling = false; }, 50);
         }
 
-        // Remove listeners antigos para evitar duplicação se initializeCarousel for chamado múltiplas vezes
+        // Remover os listeners antigos antes de adicionar novos é uma boa prática
+        // para evitar duplicação caso a função initializeCarousel seja chamada múltiplas vezes (ex: por resize)
         carouselTrack.removeEventListener('scroll', handleInfiniteScroll);
         leftArrow.removeEventListener('click', scrollLeft);
         rightArrow.removeEventListener('click', scrollRight);
 
-        // Adiciona novos listeners
         carouselTrack.addEventListener('scroll', handleInfiniteScroll);
         leftArrow.addEventListener('click', scrollLeft);
         rightArrow.addEventListener('click', scrollRight);
 
         function scrollLeft() {
             carouselTrack.scrollBy({
-                left: -itemWidth * 2, // Rola por 2 itens
+                left: -itemWidth * 2,
                 behavior: 'smooth'
             });
         }
 
         function scrollRight() {
             carouselTrack.scrollBy({
-                left: itemWidth * 2, // Rola por 2 itens
+                left: itemWidth * 2,
                 behavior: 'smooth'
             });
         }
     }
 
-    // Chama a função para renderizar os filmes quando o DOM estiver completamente carregado
     renderMovies();
 });
