@@ -9,21 +9,57 @@ body {
     font-family: Arial, sans-serif;
     background: #000;
     color: #fff;
-    /* overflow-x: hidden será definido no mobile e desktop */
-    min-height: 100vh; /* Garante que o body ocupe a altura total da viewport */
+    min-height: 100vh;
+    overflow-x: hidden; /* Mantém para evitar rolagem horizontal indesejada */
 }
 
-/* Base style for menu toggle button - it will be inside header */
+/* Content wrapper will no longer be pushed by a sidebar */
+.content-wrapper {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Header styles (Mobile-First) */
+header {
+    display: flex;
+    flex-direction: column; /* Empilha a linha superior, navegação e pesquisa */
+    align-items: flex-start;
+    padding: 15px 10px;
+    width: 100%;
+    box-sizing: border-box;
+    background-color: black;
+    border-bottom: 1px solid #333;
+}
+
+.header-top-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 15px; /* Espaço antes da barra de pesquisa */
+}
+
+.logo-site {
+    max-height: 40px;
+    width: auto;
+    flex-shrink: 0;
+    margin-left: 15px;
+}
+
+/* Menu Toggle Button (Hambúrguer) - Visível no mobile, oculto no desktop */
 .menu-toggle-button {
-    color: #FFFFFF; /* Cor do ícone */
+    color: #FFFFFF;
     cursor: pointer;
-    z-index: 1050; /* Z-index alto para clickability */
+    z-index: 1050;
     background-color: transparent;
     border: none;
     padding: 0;
-    width: 24px; /* Tamanho base do ícone */
+    width: 24px;
     height: 24px;
-    display: flex;
+    display: flex; /* Visível no mobile */
     align-items: center;
     justify-content: center;
 }
@@ -31,115 +67,73 @@ body {
 .menu-toggle-button svg {
     width: 24px;
     height: 24px;
-    fill: currentColor; /* Para que o SVG herde a cor do pai */
+    fill: currentColor;
 }
 
-/* Sidebar styles (Mobile-First) */
-.sidebar {
-    position: fixed; /* Posiciona a barra lateral em relação à viewport */
-    top: 0;
-    left: -250px; /* Oculta a barra lateral fora da tela por padrão no mobile */
-    width: 250px; /* Define a largura da barra lateral quando aberta */
-    height: 100vh; /* Ocupa a altura total da viewport */
-    background-color: #141414; /* Fundo da sidebar */
-    transition: left 0.3s ease; /* Animação suave para deslizar */
-    z-index: 1000; /* Garante que a barra lateral apareça acima de outros conteúdos */
-    overflow-y: auto; /* Permite rolagem interna se o conteúdo for muito longo */
-    color: #FFFFFF;
-    box-sizing: border-box;
-    padding-top: 55px; /* Ajusta para a altura do cabeçalho */
+/* Main Navigation (Mobile-First) */
+.main-navigation {
+    display: none; /* Oculto por padrão no mobile */
+    width: 100%;
+    margin-bottom: 15px;
+    flex-direction: column; /* Links empilhados no mobile */
+    align-items: flex-start;
 }
 
-.sidebar nav ul {
+.main-navigation.active {
+    display: flex; /* Visível quando ativado por JS no mobile */
+}
+
+.main-navigation ul {
     list-style: none;
-    padding: 20px;
+    width: 100%;
+    padding: 0;
+    margin-bottom: 15px; /* Espaço entre a lista de links e ícones sociais */
 }
 
-.sidebar nav ul li {
-    margin: 20px 0;
+.main-navigation ul li {
+    margin: 10px 0;
+    width: 100%; /* Links ocupam toda a largura */
 }
 
-.sidebar nav ul li a {
+.main-navigation ul li a {
     color: #fff;
     text-decoration: none;
+    padding: 8px 0;
+    display: block; /* Ocupa a largura total do li */
+    font-size: 1.1em;
 }
 
-/* Content wrapper styles (Mobile-First) */
-.content-wrapper {
-    margin-left: 0; /* Nenhuma margem esquerda no mobile */
-    transition: margin-left 0.3s ease; /* Animação suave para o empurrão do conteúdo */
-    width: 100%; /* Garante que o content wrapper ocupe a largura total */
-    min-height: 100vh; /* Garante que o content wrapper empurre o rodapé para baixo se necessário */
-    display: flex; /* Torna-o um contêiner flex para cabeçalho/principal/rodapé */
-    flex-direction: column; /* Empilha cabeçalho, principal, rodapé verticalmente */
-}
-
-/* JavaScript adicionará estas classes para controlar o estado da barra lateral */
-.sidebar.active {
-    left: 0; /* Traz a barra lateral para a visualização */
-}
-.content-wrapper.sidebar-open {
-    margin-left: 250px; /* Empurra o conteúdo principal para a direita para revelar a barra lateral */
-}
-
-/* Estilos para o botão de fechar a sidebar */
-.close-sidebar-button {
-    position: absolute;
-    top: 15px; /* Ajuste a posição vertical conforme necessário */
-    right: 15px; /* Ajuste a posição horizontal conforme necessário */
-    font-size: 24px;
-    cursor: pointer;
-    color: #FFF; /* Cor do X */
-    z-index: 1001; /* Garante que o botão esteja acima de outros conteúdos da sidebar */
-    display: block; /* Visível por padrão no mobile quando a sidebar está ativa */
-    background-color: transparent;
-    border: none;
-}
-
-
-/* Header styles (Mobile-First - aplica-se a max-width: 768px) */
-header {
+/* Social Icons (Mobile-First) */
+.social-icons {
     display: flex;
-    flex-direction: column; /* Empilha header-top-row e search-container verticalmente */
-    align-items: flex-start; /* Alinha os itens empilhados à esquerda */
-    padding: 15px 10px; /* Preenchimento para o cabeçalho */
-    width: 100%; /* Garante que o cabeçalho ocupe a largura total do content-wrapper */
-    box-sizing: border-box; /* Inclui o preenchimento no cálculo da largura */
-    background-color: black; /* Fundo do cabeçalho */
-    border-bottom: 1px solid #333; /* Borda inferior */
+    justify-content: flex-start; /* Alinhamento à esquerda no mobile */
+    width: 100%;
+    padding: 0;
 }
 
-.header-top-row {
-    display: flex;
-    flex-direction: row; /* Organiza o botão de menu e o logotipo lado a lado */
-    justify-content: flex-start; /* Alinha o botão de menu e o logotipo à esquerda */
-    align-items: center; /* Centraliza verticalmente o botão de menu e o logotipo */
-    width: 100%; /* Garante que esta linha ocupe a largura total */
-    margin-bottom: 15px; /* Adiciona espaço entre esta linha e a barra de pesquisa */
+.social-icons a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 1.5em;
+    margin-right: 20px; /* Espaçamento entre os ícones */
 }
 
-.logo-site {
-    max-height: 40px; /* Garante que o logotipo se ajuste */
-    width: auto; /* Mantém a proporção */
-    flex-shrink: 0; /* Impede que o logotipo encolha */
-    margin-left: 15px; /* Espaço entre o botão e o logotipo */
-}
-
+/* Search Container styles */
 .search-container {
-    width: 100%; /* **Crucial:** Ocupa 100% da largura do cabeçalho */
-    display: flex; /* Torna o input e o botão itens flex */
-    justify-content: center; /* Centraliza horizontalmente o input/botão de pesquisa dentro de sua largura de 100% */
-    align-items: center; /* Centraliza verticalmente o input e o botão */
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .search-input {
-    flex-grow: 1; /* Permite que o input ocupe todo o espaço disponível dentro do search-container */
+    flex-grow: 1;
     padding: 10px 15px;
     border: 1px solid #ccc;
-    border-radius: 20px; /* Cantos arredondados para o input de pesquisa */
+    border-radius: 20px;
     font-size: 1em;
-    background: #2A2A2A; /* Fundo do input */
-    color: #FFF; /* Cor do texto do input */
+    background: #2A2A2A;
+    color: #FFF;
 }
 
 .search-input::placeholder {
@@ -148,99 +142,89 @@ header {
 
 .search-button {
     padding: 10px 15px;
-    background-color: #007bff; /* Cor do botão de pesquisa */
+    background-color: #007bff;
     color: white;
     border: none;
-    border-radius: 20px; /* Cantos arredondados para o botão de pesquisa */
-    margin-left: 10px; /* Espaço entre o input e o botão */
+    border-radius: 20px;
+    margin-left: 10px;
     cursor: pointer;
-    flex-shrink: 0; /* Impede que o botão encolha */
+    flex-shrink: 0;
 }
 
 .main-area {
-  flex-grow: 1;
-  padding: 20px;
+    flex-grow: 1;
+    padding: 20px;
 }
 
+footer {
+    padding: 20px;
+    text-align: center;
+    background-color: #1a1a1a;
+    border-top: 1px solid #333;
+    margin-top: auto; /* Empurra o rodapé para baixo */
+}
 
 /* Desktop Layout (min-width: 769px) */
 @media (min-width: 769px) {
-    body {
-        display: grid; /* Ativa o CSS Grid para o layout geral da página */
-        grid-template-columns: 60px 1fr; /* Define duas colunas: barra lateral (60px) e conteúdo (1fr) */
-        grid-template-areas: "sidebar content"; /* Nomeia essas áreas de grade para fácil posicionamento */
-        height: 100vh; /* Garante que o contêiner da grade ocupe a altura total da viewport */
-        overflow: hidden; /* Evita a rolagem do corpo, as áreas de conteúdo podem rolar internamente */
-    }
-
-    .sidebar {
-        position: static; /* Redefine o posicionamento fixo, tornando-o parte do fluxo da grade */
-        grid-area: sidebar; /* Posiciona a barra lateral na área de grade nomeada 'sidebar' */
-        width: 60px; /* Define a largura recolhida para desktop */
-        height: 100%; /* Garante que ocupe a altura total de sua linha de grade */
-        left: auto; /* Redefine qualquer deslocamento esquerdo do mobile */
-        /* Nenhuma transição necessária para o estado estático, JS controlará a largura */
-    }
-    /* Estilos para sidebar expandida no desktop (se quiser que ela se expanda) */
-    .sidebar.active {
-        width: 250px; /* Largura expandida para desktop */
-        left: auto; /* Garante que não use o 'left' do mobile */
-    }
-
-
-    .content-wrapper {
-        grid-area: content; /* Posiciona o content wrapper na área de grade nomeada 'content' */
-        margin-left: 0; /* Redefine qualquer margem aplicada por JavaScript do mobile */
-        width: auto; /* Permite que ocupe a largura de 1fr definida pela grade */
-        flex-direction: column; /* Mantém cabeçalho, principal, rodapé empilhados */
-        padding: 0; /* Remove padding que pode ter sido herdado */
-    }
-    /* Ajuste de content-wrapper quando sidebar.active no desktop */
-    .content-wrapper.sidebar-open {
-        margin-left: 0; /* No layout de grid, não empurramos o conteúdo com margin-left, ele se adapta */
-    }
-
-    /* Oculta o botão de fechar no desktop, pois a sidebar é sempre visível ou controlada por largura */
-    .close-sidebar-button {
-        display: none; 
-    }
-
     header {
-        flex-direction: row; /* Muda para layout horizontal no desktop */
-        justify-content: space-between; /* Distribui os itens: header-top-row à esquerda, search-container à direita */
-        align-items: center; /* Alinha verticalmente todos os itens no cabeçalho */
-        padding: 15px 20px; /* Ajusta o preenchimento para desktop */
-        width: auto; /* Deixa o header se ajustar à grade */
+        flex-direction: row; /* Coloca logo, nav e search na mesma linha */
+        justify-content: space-between; /* Distribui o espaço entre os elementos */
+        align-items: center;
+        padding: 15px 20px;
     }
 
     .header-top-row {
-        width: auto; /* Permite que o conteúdo dite a largura, não mais largura total */
-        margin-bottom: 0; /* Remove a margem inferior específica do mobile */
-        justify-content: flex-start; /* Garante que o botão e o logotipo permaneçam alinhados à esquerda dentro do seu grupo */
+        width: auto; /* Permite que o logo e botão se ajustem ao conteúdo */
+        margin-bottom: 0;
     }
 
     .menu-toggle-button {
-        /* O botão agora é simplesmente o primeiro item na linha do cabeçalho. */
-        /* Sua aparência "dentro da área da barra lateral" é alcançada pelo layout geral da grade. */
-        margin-right: 25px; /* Ajusta o espaçamento entre o botão e o logotipo para desktop */
-        position: static; /* Garante que ele flua normalmente */
+        display: none; /* Oculta o botão de hambúrguer no desktop */
     }
 
     .logo-site {
-        /* Nenhuma alteração específica necessária, já faz parte do flex do header-top-row */
+        margin-left: 0; /* Remove margem extra */
+        margin-right: 30px; /* Espaço entre o logo e o menu de navegação */
+    }
+
+    .main-navigation {
+        display: flex; /* Visível no desktop */
+        flex-direction: row; /* Links na horizontal */
+        flex-grow: 1; /* Ocupa o espaço disponível entre o logo e a pesquisa */
+        justify-content: flex-start; /* Alinha o menu e os ícones sociais à esquerda */
+        align-items: center;
+        margin-bottom: 0;
+    }
+
+    .main-navigation ul {
+        display: flex; /* Links da navegação horizontalmente */
+        margin-bottom: 0;
+        margin-right: 30px; /* Espaço entre o menu de navegação e os ícones sociais */
+    }
+
+    .main-navigation ul li {
+        margin: 0;
+        margin-right: 25px; /* Espaçamento entre os links */
+        width: auto;
+    }
+
+    .main-navigation ul li a {
+        padding: 0; /* Remove padding para alinhamento horizontal */
+        font-size: 1em; /* Tamanho da fonte padrão */
+    }
+
+    .social-icons {
+        justify-content: flex-end; /* Alinha os ícones sociais à direita dentro da navegação */
+        width: auto; /* Ajusta a largura ao conteúdo */
+        margin-left: auto; /* Empurra para a direita se houver espaço */
     }
 
     .search-container {
-        width: auto; /* Permite que o contêiner de pesquisa se dimensione com base em seu conteúdo (input/botão) */
-        justify-content: flex-end; /* Garante que o input/botão de pesquisa estejam alinhados à direita dentro de seu contêiner */
+        width: auto; /* Permite que o contêiner de pesquisa se dimensione */
+        margin-left: 20px; /* Espaço entre a navegação e a pesquisa */
     }
 
     .search-input {
-        flex-grow: 0; /* Impede que o input cresça excessivamente no desktop */
-        width: 300px; /* Exemplo de largura fixa para o input de pesquisa no desktop para melhor controle */
-    }
-
-    .search-button {
-        /* Nenhuma alteração específica necessária */
+        width: 300px; /* Largura fixa para o input no desktop */
     }
 }
