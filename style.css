@@ -240,7 +240,7 @@ footer {
 .carousel-track {
     display: flex;
     overflow-x: scroll; /* Permite a rolagem horizontal */
-    scroll-snap-type: x mandatory; /* Garante que os itens parem em pontos específicos */
+    /* scroll-snap-type: x mandatory; REMOVIDO para o carrossel infinito com JS */
     -webkit-overflow-scrolling: touch; /* Melhor rolagem em dispositivos iOS */
     scrollbar-width: none; /* Oculta a barra de rolagem para navegadores baseados em Firefox */
     -ms-overflow-style: none;  /* Oculta a barra de rolagem para IE/Edge */
@@ -256,7 +256,7 @@ footer {
     width: 180px; /* Largura do pôster */
     margin-right: 15px; /* Espaçamento entre os pôsteres */
     text-align: center;
-    scroll-snap-align: start; /* Alinha o início do item ao início do contêiner de rolagem */
+    /* scroll-snap-align: start; REMOVIDO para o carrossel infinito com JS */
 }
 
 .movie-card img {
@@ -385,7 +385,7 @@ footer {
 
     /* CAROUSEL DESKTOP ADJUSTMENTS */
     .carousel-track {
-        justify-content: center; /* Centraliza os filmes no desktop */
+        justify-content: flex-start; /* Alinha os filmes à esquerda no desktop para rolagem infinita */
         padding: 0 50px; /* Ajusta o padding para as setas não cobrirem os filmes */
     }
 
