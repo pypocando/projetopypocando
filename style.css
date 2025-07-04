@@ -244,10 +244,10 @@ header {
 /* Movie Grid Section */
 .movie-grid-container {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); /* Colunas responsivas */
-    gap: 20px; /* Espaçamento entre os itens da grade */
-    padding: 10px;
-    justify-content: center; /* Centraliza a grade */
+    grid-template-columns: repeat(3, 1fr); /* ALTERADO: Para 3 filmes por linha no mobile */
+    gap: 0; /* ALTERADO: Remove os espaços entre os filmes */
+    padding: 0; /* ALTERADO: Remove padding das bordas */
+    justify-content: center; /* Mantido, mas com 3, 1fr pode não ter mais efeito significativo */
 }
 
 /* Footer */
