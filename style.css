@@ -330,7 +330,7 @@ footer {
         left: 50%;
         transform: translateX(-50%); /* Centraliza a seção na tela */
         margin-bottom: 40px; /* Mantém a margem inferior existente */
-        padding: 0; /* Remove qualquer padding interno que possa causar espaçamento */
+        padding: 0 40px; /* ALTERADO: Adiciona padding horizontal */
     }
 
     .carousel-container {
