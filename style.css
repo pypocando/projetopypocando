@@ -341,6 +341,13 @@ footer {
     .carousel-track {
         padding: 0; /* Remove o padding horizontal interno para que os cards comecem na borda */
     }
+
+    /* Movie Grid Section (Apenas Desktop) */
+    .movie-grid-container {
+        grid-template-columns: repeat(7, 1fr); /* ALTERADO: Para 7 filmes por linha */
+        gap: 0; /* ALTERADO: Remove os espaços entre os filmes */
+        padding: 0; /* ALTERADO: Remove padding das bordas */
+    }
 }
 
 /* Estilos do Modal */
